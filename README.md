@@ -1,9 +1,6 @@
-# 4real-XmD-v2
-"A powerful multi-feature WhatsApp bot built with Baileys. Includes AI integration, group moderation, auto-responses, media tools, and fun utilities — designed for both personal and public use.”
+# 🤖 4real-XmD-v2
 
-# 🤖 4real Bot
-
-This is a WhatsApp bot built using the Baileys library for group management, including features like tagging all members, muting/unmuting, and many more. It's designed to help admins efficiently manage WhatsApp groups.
+A powerful multi-feature WhatsApp bot built with Baileys. Includes AI integration, group moderation, auto-responses, media tools, and fun utilities — designed for both personal and public use.
 
 <div align="center"> 
   <a href="https://git.io/typing-svg"> 
@@ -96,7 +93,7 @@ For further customization and setup guidance, click the button below:
 
 ## 📖 About
 
-The 4realS WhatsApp Bot assists group admins by providing them with tools to efficiently manage large WhatsApp groups. The bot uses the Baileys library to interact with the WhatsApp Web API and supports multi-device features.
+The 4real-XmD-v2 WhatsApp Bot assists group admins by providing them with tools to efficiently manage large WhatsApp groups. The bot uses the Baileys library to interact with the WhatsApp Web API and supports multi-device features.
 
 It is lightweight and can be easily customized to add more commands as per your requirements. The bot runs in a Node.js environment and provides QR code-based authentication to link your WhatsApp account.
 
@@ -181,7 +178,7 @@ This project is licensed under the MIT License. However, you must:
 
 ## 📜 Copyright Notice
 
-Copyright (c) 2024 Professor. All rights reserved.
+Copyright (c) 2025 qut@ybah. All rights reserved.
 
 This project contains code from various open source projects:
 - Baileys (MIT License)
