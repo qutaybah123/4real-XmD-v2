@@ -6,7 +6,7 @@ const settings = require('./settings');
 
 async function githubCommand(sock, chatId, message) {
   try {
-    const res = await fetch('https://api.github.com/repos/tybah-max/toxic4real');
+    const res = await fetch('https://api.github.com/repos/qutaybah123/4real-XmD-v2');
     if (!res.ok) throw new Error('Error fetching repository data');
     const json = await res.json();
 
