@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 const supportedLangs = {
     af: "Afrikaans", sq: "Albanian", am: "Amharic", ar: "Arabic", hy: "Armenian",
     az: "Azerbaijani", eu: "Basque", be: "Belarusian", bn: "Bengali", bs: "Bosnian",
-    bg: "Bulgarian", ca: "Catalan", ceb: "Cebuano", zh: "Chinese (Simplified)", zh-TW: "Chinese (Traditional)",
+    bg: "Bulgarian", ca: "Catalan", ceb: "Cebuano", zh: "Chinese (Simplified)", 
     co: "Corsican", hr: "Croatian", cs: "Czech", da: "Danish", nl: "Dutch",
     en: "English", eo: "Esperanto", et: "Estonian", fi: "Finnish", fr: "French",
     fy: "Frisian", gl: "Galician", ka: "Georgian", de: "German", el: "Greek",
