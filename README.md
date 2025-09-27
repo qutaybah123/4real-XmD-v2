@@ -73,6 +73,12 @@ For further customization and setup guidance, click the button below:
 
 <div align="center">
   <a href="https://instagram.com/ligang_.4real">
+    <img src="https://img.shields.io/badge/Follow%20on%20Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Follow on Instagram"/>
+  </a>
+</div>
+
+<div align="center">
+  <a href="https://instagram.com/ligang_.4real">
     <img src="https://img.shields.io/badge/Join%20WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Join WhatsApp"/>
   </a>
 </div>
