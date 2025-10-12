@@ -17,27 +17,34 @@ async function aliveCommand(sock, chatId, message) {
 ╰────────────────────◉
 > *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}*`;
 
-        // Use global.botImageUrl or fallback to text-only
-        const imageUrl = global.botImageUrl || null;
+        const imageUrl = typeof global.botImageUrl === 'string' && global.botImageUrl.trim() !== ''
+            ? global.botImageUrl
+            : null;
+
+        const mentionId = message.sender || message.participant;
+        const contextInfo = mentionId ? {
+            mentionedJid: [mentionId],
+            forwardingScore: 999,
+            isForwarded: true
+        } : {};
 
         if (imageUrl) {
             await sock.sendMessage(chatId, {
                 image: { url: imageUrl },
                 caption: status,
-                contextInfo: {
-                    mentionedJid: [message.sender || message.participant],
-                    forwardingScore: 999,
-                    isForwarded: true
-                }
+                contextInfo
             }, { quoted: message });
         } else {
-            await sock.sendMessage(chatId, { text: status }, { quoted: message });
+            await sock.sendMessage(chatId, {
+                text: status,
+                contextInfo
+            }, { quoted: message });
         }
 
     } catch (error) {
         console.error("Error in alive command:", error);
-        await sock.sendMessage(chatId, { 
-            text: "⚠️ Failed to load full status, but bot is alive and running!" 
+        await sock.sendMessage(chatId, {
+            text: "⚠️ Failed to load full status, but bot is alive and running!"
         }, { quoted: message });
     }
 }
