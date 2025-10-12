@@ -988,7 +988,7 @@ case userMessage.startsWith('.watercolor'):
             case userMessage.startsWith('.tiktok') || userMessage.startsWith('.tt'):
                 await tiktokCommand(sock, chatId, message);
                 break;
-           case userMessage.startsWith('.gpt') || userMessage.startsWith('.gemini') || userMessage.startsWith('.deepseek') || userMessage.startsWith('.mistral') || userMessage.startsWith('.metaai') || userMessage.startsWith('.nemotron') || userMessage.startsWith('.nvidia'):
+           case userMessage.startsWith('.gpt') || userMessage.startsWith('.claude') || userMessage.startsWith('.deepseek') || userMessage.startsWith('.mistral') || userMessage.startsWith('.metaai') || userMessage.startsWith('.nemotron') || userMessage.startsWith('.nvidia'):
     await aiCommand(sock, chatId, message);
     break;
             case userMessage.startsWith('.translate') || userMessage.startsWith('.trt'):
