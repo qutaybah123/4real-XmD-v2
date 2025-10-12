@@ -4,7 +4,7 @@ A powerful multi-feature WhatsApp bot built with Baileys. Includes AI integratio
 
 <div align="center"> 
   <a href="https://git.io/typing-svg"> 
-    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=4real-Bot;Multi+Device+Whatsapp+Bot;Coded+By+qut@ybah" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=50&pause=1000&color=blue&center=true&width=910&height=100&lines=4real-Bot;Multi+Device+Whatsapp+Bot;Coded+By+qut@ybah" alt="Typing SVG" />
   </a> 
 </div> 
 
