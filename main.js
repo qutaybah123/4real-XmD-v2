@@ -15,10 +15,6 @@ const { autoreadCommand, isAutoreadEnabled, handleAutoread } = require('./comman
 
 // Command imports
 const { 
-  formatStandings, 
-  formatMatches, 
-  formatTopScorers, 
-  formatUpcomingMatches,
   getWrestlingEvents,
   getWWENews,
   getWWESchedule
