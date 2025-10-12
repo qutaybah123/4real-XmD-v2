@@ -132,7 +132,7 @@ global.OPENGEMINI2_0FLASH_KEY = "sk-or-v1-2e56bb2c315d5777320c0587cdc641f6dc4c4c
 global.OPENGEMINI1_5FLASH_KEY = "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";  // For Gemini command  
 global.OPENDEEPSEEKR1_KEY = "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";     // For DeepSeek
 global.OPENMISTRAL_KEY = "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";        // For Mistral
-global.OPENMETA_KEY = "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";           // For Meta AI
+global.OPENMETA_KEY = "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";           // For Meta AI
 global.OPENNVIDIA_KEY = "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";         // For NVIDIA Nemotron
 global.wwe = 'https://www.thesportsdb.com/api/v1/json/3/searchevents.php?e=WWE';
 global.wwe1 = 'https://www.thesportsdb.com/api/v1/json/3/searchfilename.php?e=WWE_Events';
