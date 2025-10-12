@@ -2,8 +2,8 @@ const fetch = require('node-fetch');
 
 async function dareCommand(sock, chatId, message) {
     try {
-        if (!global.OPENDEEPSEEKR1_KEY) {
-            throw new Error("DeepSeek API key not configured. Set global.OPENDEEPSEEKR1_KEY");
+        if (!global.OPENMETA_KEY) {
+            throw new Error("Meta AI API key not configured. Set global.OPENMETA_KEY");
         }
 
         // Strict system prompt to only return a dare
@@ -17,11 +17,14 @@ Your ONLY task is to output a dare in a short, clear sentence.
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${global.OPENDEEPSEEKR1_KEY}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${global.OPENMETA_KEY}`,
+                "HTTP-Referer": "https://github.com/your-bot",
+                "X-Title": "WhatsApp Dare Bot",
+                "Content-Type": "application/json",
+                "User-Agent": "WhatsApp-Bot/1.0"
             },
             body: JSON.stringify({
-                model: "deepseek/deepseek-r1:free",
+                model: "meta-llama/llama-4-maverick:free",
                 messages: [
                     { role: "system", content: systemPrompt },
                     { role: "user", content: "Give me a dare." }
@@ -31,7 +34,11 @@ Your ONLY task is to output a dare in a short, clear sentence.
             })
         });
 
-        if (!response.ok) throw new Error(`DeepSeek API error: ${response.status}`);
+        if (!response.ok) {
+            const errorData = await response.text();
+            throw new Error(`Meta AI API error: ${response.status}`);
+        }
+
         const data = await response.json();
         const dareMessage = data.choices?.[0]?.message?.content?.trim();
 
