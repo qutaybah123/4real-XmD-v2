@@ -136,90 +136,54 @@ async function aiCommand(sock, chatId, message) {
                 } catch (fallbackError) {
                     throw new Error(`GPT Error: ${fallbackError.message}`);
                 }
-            } else if (command === '.gemini') {
-                // Option 1: OpenRouter Gemini
-                if (global.OPENGEMINI2_0FLASH_KEY) {
-                    try {
-                        const keyValid = await testOpenRouterKey(global.OPENGEMINI2_0FLASH_KEY);
-                        if (!keyValid) {
-                            throw new Error('OpenRouter API key is invalid or expired');
-                        }
+            } else if (command === '.claude') {
+    if (!global.OPENANTHROPIC_KEY) {
+        throw new Error('Anthropic API key not configured. Set global.OPENANTHROPIC_KEY');
+    }
 
-                        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                            method: "POST",
-                            headers: {
-                                "Authorization": `Bearer ${global.OPENGEMINI2_0FLASH_KEY}`,
-                                "HTTP-Referer": "https://github.com/your-bot",
-                                "X-Title": "WhatsApp AI Bot",
-                                "Content-Type": "application/json",
-                                "User-Agent": "WhatsApp-Bot/1.0"
-                            },
-                            body: JSON.stringify({
-                                "model": "google/gemini-2.0-flash-001",
-                                "messages": [{"role": "user", "content": query}],
-                                "temperature": 0.7,
-                                "max_tokens": 2048
-                            })
-                        });
+    const keyValid = await testOpenRouterKey(global.OPENANTHROPIC_KEY);
+    if (!keyValid) {
+        throw new Error('Anthropic API key is invalid or expired');
+    }
 
-                        if (!response.ok) {
-                            const errorData = await response.text();
-                            if (response.status === 429) {
-                                throw new Error('Rate limit exceeded for Gemini. Please try again in a few minutes.');
-                            }
-                            throw new Error(`OpenRouter error: ${response.status}`);
-                        }
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${global.OPENANTHROPIC_KEY}`,
+            "HTTP-Referer": "https://github.com/your-bot",
+            "X-Title": "WhatsApp AI Bot",
+            "Content-Type": "application/json",
+            "User-Agent": "WhatsApp-Bot/1.0"
+        },
+        body: JSON.stringify({
+            "model": "anthropic/claude-sonnet-4.5",
+            "messages": [
+                { "role": "system", "content": "You are Claude Sonnet 4.5, a highly advanced AI model. Be clear, concise, and helpful in your responses." },
+                { "role": "user", "content": query }
+            ],
+            "temperature": 0.7,
+            "max_tokens": 4096
+        })
+    });
 
-                        const data = await response.json();
-                        if (data.choices?.[0]?.message?.content) {
-                            return await sock.sendMessage(chatId, {
-                                text: data.choices[0].message.content.trim()
-                            }, { quoted: message });
-                        } else {
-                            throw new Error('No content in response from OpenRouter');
-                        }
-                    } catch (openRouterError) {
-                        console.error('OpenRouter Gemini Error:', openRouterError);
-                        // Continue to fallback
-                    }
-                }
+    if (!response.ok) {
+        const errorData = await response.text();
+        if (response.status === 429) {
+            throw new Error('Rate limit exceeded for Claude. Please try again in a few minutes.');
+        }
+        throw new Error(`Claude API error: ${response.status} - ${errorData}`);
+    }
 
-                // Fallback to original Gemini APIs
-                const apis = [
-                    `https://vapis.my.id/api/gemini?q=${encodeURIComponent(query)}`,
-                    `https://api.siputzx.my.id/api/ai/gemini-pro?content=${encodeURIComponent(query)}`,
-                    `https://api.ryzendesu.vip/api/ai/gemini?text=${encodeURIComponent(query)}`,
-                    `https://api.dreaded.site/api/gemini2?text=${encodeURIComponent(query)}`,
-                    `https://api.giftedtech.my.id/api/ai/geminiai?apikey=gifted&q=${encodeURIComponent(query)}`,
-                    `https://api.giftedtech.my.id/api/ai/geminiaipro?apikey=gifted&q=${encodeURIComponent(query)}`
-                ];
-
-                let fallbackSuccess = false;
-                for (const api of apis) {
-                    try {
-                        const response = await fetch(api, { timeout: 10000 });
-                        const data = await response.json();
-
-                        if (data.message || data.data || data.answer || data.result) {
-                            const answer = data.message || data.data || data.answer || data.result;
-                            await sock.sendMessage(chatId, {
-                                text: answer
-                            }, {
-                                quoted: message
-                            });
-                            fallbackSuccess = true;
-                            break;
-                        }
-                    } catch (e) {
-                        console.log(`Fallback API failed: ${api}`);
-                        continue;
-                    }
-                }
-                
-                if (!fallbackSuccess) {
-                    throw new Error('All Gemini APIs failed. Please try again later.');
-                }
-            } else if (command === '.deepseek' || command === '.deepseekr1') {
+    const data = await response.json();
+    if (data.choices?.[0]?.message?.content) {
+        await sock.sendMessage(chatId, {
+            text: data.choices[0].message.content.trim()
+        }, { quoted: message });
+    } else {
+        throw new Error('Invalid response from Claude Sonnet 4.5');
+    }
+}
+ else if (command === '.deepseek' || command === '.deepseekr1') {
                 // Try OpenRouter DeepSeek first
                 if (global.OPENDEEPSEEKR1_KEY) {
                     try {
