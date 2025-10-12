@@ -96,54 +96,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .igsc <insta link>
 └───────────
 
-┌─⊷ *FOOTBALL STANDINGS*
-▢ .plstandings
-▢ .clstandings
-▢ .laliga
-▢ .bundesliga
-▢ .seriea
-▢ .ligue1standing
-▢ .elstandings 
-▢ .eflstandings 
-▢ .wcstandings 
-└───────────
-
-┌─⊷ *FOOTBALL MATCHES*
-▢ .eplmatches 
-▢ .clmatches 
-▢ .laligamatches 
-▢ .bundesligamatches 
-▢ .serieamatches 
-▢ .ligue1matches 
-▢ .elmatches 
-▢ .eflmatches 
-▢ .wcmatches 
-└───────────
-
-┌─⊷ *FOOTBALL TOP SCORERS*
-▢ .eplscorers 
-▢ .clscorers 
-▢ .laligascorers 
-▢ .bl1scorers
-▢ .serieascorers 
-▢ .ligue1scorers 
-▢ .elscorers 
-▢ .eflscorers 
-▢ .wcscorers 
-└───────────
-
-┌─⊷ *FOOTBALL UPCOMING MATCHES*
-▢ .eplupcoming 
-▢ .clupcoming 
-▢ .laligaupcoming 
-▢ .bl1upcoming
-▢ .serieaupcoming 
-▢ .ligue1upcoming 
-▢ .elupcoming 
-▢ .eflupcoming 
-▢ .wcupcoming 
-└───────────
-
 ┌─⊷ *WRESTLING*
 ▢ .wevents
 ▢ .wwenews 
