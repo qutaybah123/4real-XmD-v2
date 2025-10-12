@@ -36,7 +36,7 @@ Deploy the bot and easily connect it to your WhatsApp account by pair code. Clic
 
 <div align="center">
   <a href="https://3d50a6e70235469b91a535cf0245ca52.serveo.net" target="_blank">
-    <img src="https://img.shields.io/badge/GET%20PAIR%20CODE-Easy%20Method-ff4d4d?style=for-the-badge" alt="Generate Pair Code"/>
+    <img alt='Pairing Code' src='https://img.shields.io/badge/Get%20Pairing%20Code-darkpink?style=for-the-badge&logo=opencv&logoColor=black'/>
   </a>
 </div>
 
