@@ -72,25 +72,25 @@ async function aiCommand(sock, chatId, message) {
             }
 
             if (command === '.gpt') {
-                // Option 1: OpenRouter GPT
-                if (global.OPENGEMINI2_0FLASH_KEY) {
+                // Option 1: OpenRouter OpenAI Models
+                if (global.OPENAI_API_KEY) {
                     try {
-                        const keyValid = await testOpenRouterKey(global.OPENGEMINI2_0FLASH_KEY);
+                        const keyValid = await testOpenRouterKey(global.OPENAI_API_KEY);
                         if (!keyValid) {
-                            throw new Error('OpenRouter API key is invalid or expired');
+                            throw new Error('OpenAI API key is invalid or expired');
                         }
 
                         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                             method: "POST",
                             headers: {
-                                "Authorization": `Bearer ${global.OPENGEMINI2_0FLASH_KEY}`,
+                                "Authorization": `Bearer ${global.OPENAI_API_KEY}`,
                                 "HTTP-Referer": "https://github.com/your-bot",
                                 "X-Title": "WhatsApp AI Bot",
                                 "Content-Type": "application/json",
                                 "User-Agent": "WhatsApp-Bot/1.0"
                             },
                             body: JSON.stringify({
-                                "model": "google/gemini-2.0-flash-001",
+                                "model": "openai/gpt-5-pro", // You can change to other OpenAI models
                                 "messages": [{"role": "user", "content": query}],
                                 "temperature": 0.7,
                                 "max_tokens": 2048
@@ -100,9 +100,9 @@ async function aiCommand(sock, chatId, message) {
                         if (!response.ok) {
                             const errorData = await response.text();
                             if (response.status === 429) {
-                                throw new Error('Rate limit exceeded for GPT. Please try again in a few minutes.');
+                                throw new Error('Rate limit exceeded for OpenAI. Please try again in a few minutes.');
                             }
-                            throw new Error(`OpenRouter error: ${response.status}`);
+                            throw new Error(`OpenAI API error: ${response.status}`);
                         }
 
                         const data = await response.json();
@@ -111,10 +111,10 @@ async function aiCommand(sock, chatId, message) {
                                 text: data.choices[0].message.content.trim()
                             }, { quoted: message });
                         } else {
-                            throw new Error('No content in response from OpenRouter');
+                            throw new Error('No content in response from OpenAI');
                         }
-                    } catch (openRouterError) {
-                        console.error('OpenRouter GPT Error:', openRouterError);
+                    } catch (openAIError) {
+                        console.error('OpenAI API Error:', openAIError);
                         // Continue to fallback
                     }
                 }
@@ -138,9 +138,9 @@ async function aiCommand(sock, chatId, message) {
                 }
             } else if (command === '.gemini') {
                 // Option 1: OpenRouter Gemini
-                if (global.OPENGEMINI1_5FLASH_KEY) {
+                if (global.OPENGEMINI2_0FLASH_KEY) {
                     try {
-                        const keyValid = await testOpenRouterKey(global.OPENGEMINI1_5FLASH_KEY);
+                        const keyValid = await testOpenRouterKey(global.OPENGEMINI2_0FLASH_KEY);
                         if (!keyValid) {
                             throw new Error('OpenRouter API key is invalid or expired');
                         }
@@ -148,14 +148,14 @@ async function aiCommand(sock, chatId, message) {
                         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                             method: "POST",
                             headers: {
-                                "Authorization": `Bearer ${global.OPENGEMINI1_5FLASH_KEY}`,
+                                "Authorization": `Bearer ${global.OPENGEMINI2_0FLASH_KEY}`,
                                 "HTTP-Referer": "https://github.com/your-bot",
                                 "X-Title": "WhatsApp AI Bot",
                                 "Content-Type": "application/json",
                                 "User-Agent": "WhatsApp-Bot/1.0"
                             },
                             body: JSON.stringify({
-                                "model": "google/gemini-flash-1.5",
+                                "model": "google/gemini-2.0-flash-001",
                                 "messages": [{"role": "user", "content": query}],
                                 "temperature": 0.7,
                                 "max_tokens": 2048
