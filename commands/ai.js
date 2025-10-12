@@ -155,7 +155,7 @@ async function aiCommand(sock, chatId, message) {
                                 "User-Agent": "WhatsApp-Bot/1.0"
                             },
                             body: JSON.stringify({
-                                "model": "google/gemini-2.5-pro",
+                                "model": "google/gemini-flash-1.5",
                                 "messages": [{"role": "user", "content": query}],
                                 "temperature": 0.7,
                                 "max_tokens": 2048
