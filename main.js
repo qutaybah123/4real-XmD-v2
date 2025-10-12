@@ -133,6 +133,7 @@ global.OPENGEMINI1_5FLASH_KEY = "sk-or-v1-fe9172c91fa3b423e621e01b4242945b30f299
 global.OPENDEEPSEEKR1_KEY = "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";     // For DeepSeek
 global.OPENMISTRAL_KEY = "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";        // For Mistral
 global.OPENMETA_KEY = "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";           // For Meta AI
+global.OPENANTHROPIC_KEY = "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";
 global.OPENNVIDIA_KEY = "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";         // For NVIDIA Nemotron
 global.wwe = 'https://www.thesportsdb.com/api/v1/json/3/searchevents.php?e=WWE';
 global.OPENAI_API_KEY= "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";
