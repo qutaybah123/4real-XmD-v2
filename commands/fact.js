@@ -2,8 +2,8 @@ const fetch = require('node-fetch');
 
 module.exports = async function (sock, chatId, message) {
     try {
-        if (!global.OPENDEEPSEEKR1_KEY) {
-            throw new Error("DeepSeek API key not configured. Set global.OPENDEEPSEEKR1_KEY");
+        if (!global.OPENNVIDIA_KEY) {
+            throw new Error("NVIDIA API key not configured. Set global.OPENNVIDIA_KEY");
         }
 
         // Strict system prompt to only return one fact
@@ -17,11 +17,14 @@ Your ONLY task is to output one interesting fact in English.
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${global.OPENDEEPSEEKR1_KEY}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${global.OPENNVIDIA_KEY}`,
+                "HTTP-Referer": "https://github.com/your-bot",
+                "X-Title": "WhatsApp Fact Bot",
+                "Content-Type": "application/json",
+                "User-Agent": "WhatsApp-Bot/1.0"
             },
             body: JSON.stringify({
-                model: "deepseek/deepseek-r1:free",
+                model: "nvidia/nemotron-nano-9b-v2:free",
                 messages: [
                     { role: "system", content: systemPrompt },
                     { role: "user", content: "Give me one random fact." }
@@ -31,7 +34,10 @@ Your ONLY task is to output one interesting fact in English.
             })
         });
 
-        if (!response.ok) throw new Error(`DeepSeek API error: ${response.status}`);
+        if (!response.ok) {
+            const errorData = await response.text();
+            throw new Error(`NVIDIA API error: ${response.status}`);
+        }
 
         const data = await response.json();
         const fact = data.choices?.[0]?.message?.content?.trim();
