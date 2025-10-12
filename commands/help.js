@@ -123,7 +123,7 @@ async function helpCommand(sock, chatId, message) {
 
 ┌─⊷ *AI*
 ▢ .gpt <question>
-▢ .deepseek <question>
+▢ .claude <question>
 ▢ .mistral <question>
 ▢ .metaai <question>
 ▢ .nemotron <question>
