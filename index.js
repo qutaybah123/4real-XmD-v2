@@ -45,6 +45,9 @@ const { PHONENUMBER_MCC } = require('@whiskeysockets/baileys/lib/Utils/generics'
 const { rmSync, existsSync } = require('fs')
 const { join } = require('path')
 
+const { storeMessage, handleMessageRevocation } = require('./commands/antidelete');
+
+
 // Import lightweight store
 const store = require('./lib/lightweight_store')
 
@@ -123,6 +126,8 @@ async function startXeonBotInc() {
         try {
             const mek = chatUpdate.messages[0]
             if (!mek.message) return
+            await storeMessage(mek); // 🧩 Save message for anti-delete recovery
+
             mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
             if (mek.key && mek.key.remoteJid === 'status@broadcast') {
                 await handleStatus(XeonBotInc, chatUpdate);
@@ -228,6 +233,21 @@ async function startXeonBotInc() {
         }, 3000)
     }
 
+    // 🧩 Anti-Delete: Detect when a message is deleted and restore it
+XeonBotInc.ev.on('messages.update', async updates => {
+    try {
+        for (const update of updates) {
+            if (update.message?.protocolMessage?.type === 0) { // Type 0 = Message deleted
+                console.log('[AntiDelete] Detected deleted message');
+                await handleMessageRevocation(XeonBotInc, update);
+            }
+        }
+    } catch (err) {
+        console.error('[AntiDelete] messages.update error:', err);
+    }
+});
+
+    
     // Connection handling
     XeonBotInc.ev.on('connection.update', async (s) => {
         const { connection, lastDisconnect } = s
