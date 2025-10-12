@@ -131,7 +131,7 @@ global.botImageUrl = "https://example.com/your-bot-image.jpg";
 global.OPENGEMINI2_0FLASH_KEY = "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";  // For GPT command
 global.OPENGEMINI1_5FLASH_KEY = "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";  // For Gemini command  
 global.OPENDEEPSEEKR1_KEY = "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";     // For DeepSeek
-global.OPENMISTRAL_KEY = "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";        // For Mistral
+global.OPENMISTRAL_KEY = "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";        // For Mistral
 global.OPENMETA_KEY = "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";           // For Meta AI
 global.OPENNVIDIA_KEY = "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";         // For NVIDIA Nemotron
 global.wwe = 'https://www.thesportsdb.com/api/v1/json/3/searchevents.php?e=WWE';
