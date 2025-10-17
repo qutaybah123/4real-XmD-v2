@@ -18,7 +18,8 @@ async function githubCommand(sock, chatId, message) {
     txt += `✩  *URL* : ${json.html_url}\n`;
     txt += `✩  *Forks* : ${json.forks_count}\n`;
     txt += `✩  *Stars* : ${json.stargazers_count}\n\n`;
-    txt += `💥 *4real-XmD-v2*`;
+    txt += `💥 *4real-XmD-v2*\n\n`;
+    txt += `> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟɪɢᴀɴɢ ᴛᴇᴄʜꜱ*`;
 
     let msgOptions;
 
