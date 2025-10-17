@@ -259,25 +259,27 @@ Current message: ${userMessage}
 You:
         `.trim();
 
-        if (!global.OPENDEEPSEEKR1_KEY) {
-            throw new Error("DeepSeek API key not configured. Set global.OPENDEEPSEEKR1_KEY");
+        if (!global.OPENAI_API_KEY) {
+            throw new Error("OpenAI API key not configured. Set global.OPENAI_API_KEY");
         }
 
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${global.OPENDEEPSEEKR1_KEY}`,
+                "Authorization": `Bearer ${global.OPENAI_API_KEY}`,
+                "HTTP-Referer": "https://github.com/your-bot",
+                "X-Title": "WhatsApp AI Bot",
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "deepseek/deepseek-r1:free",
+                model: "openai/gpt-5-pro",
                 messages: [{ role: "user", content: prompt }],
                 temperature: 0.7,
                 max_tokens: 512
             })
         });
 
-        if (!response.ok) throw new Error(`DeepSeek API error: ${response.status}`);
+        if (!response.ok) throw new Error(`OpenRouter API error: ${response.status}`);
         const data = await response.json();
         return data.choices?.[0]?.message?.content?.trim() || null;
     } catch (error) {
