@@ -6,13 +6,17 @@ module.exports = async function (sock, chatId, message) {
             throw new Error("NVIDIA API key not configured. Set global.OPENNVIDIA_KEY");
         }
 
-        // Strict system prompt to only return one fact
         const systemPrompt = `
 You are a fact generator.
-Your ONLY task is to output one interesting fact in English.
+Your ONLY task is to output one unique, interesting fact in English.
+❌ Do NOT repeat any previously used fact.
 ❌ Do NOT add explanations, emojis, greetings, or extra text.
-✅ Just give one fact only.
+✅ Output exactly ONE fact only.
         `.trim();
+
+        // Generate a random seed or identifier to encourage variability
+        const randomSeed = Math.floor(Math.random() * 1000000);
+        const userPrompt = `Give me one unique random fact. (seed: ${randomSeed})`;
 
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
@@ -27,16 +31,17 @@ Your ONLY task is to output one interesting fact in English.
                 model: "nvidia/nemotron-nano-9b-v2:free",
                 messages: [
                     { role: "system", content: systemPrompt },
-                    { role: "user", content: "Give me one random fact." }
+                    { role: "user", content: userPrompt }
                 ],
-                temperature: 0.7,
+                temperature: 1.0,     // higher = more creativity
+                top_p: 0.95,          // top-p sampling for more variety
                 max_tokens: 120
             })
         });
 
         if (!response.ok) {
-            const errorData = await response.text();
-            throw new Error(`NVIDIA API error: ${response.status}`);
+            const errorText = await response.text();
+            throw new Error(`NVIDIA API error: ${response.status} - ${errorText}`);
         }
 
         const data = await response.json();
