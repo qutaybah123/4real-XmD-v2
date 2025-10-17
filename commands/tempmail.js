@@ -21,7 +21,7 @@ async function tempMailCommand(sock, chatId, message) {
             year: "numeric"
         });
 
-        const messageText = `
+        const textMsg = `
 ╭───〔 📧 *TEMPORARY EMAIL GENERATED* 〕
 │✉️ *Email:* ${email}
 │⏳ *Expires:* ${timeString} • ${dateString}
@@ -32,17 +32,16 @@ async function tempMailCommand(sock, chatId, message) {
 │🕒 _Email will expire after 24 hours_
 ╰───────────────────────◉`;
 
-        await sock.sendMessage(
-            chatId,
-            {
-                text: messageText,
-                contextInfo: {
-                    forwardingScore: 999,
-                    isForwarded: true
-                }
-            },
-            { quoted: message }
-        );
+        await sock.sendMessage(chatId, {
+            text: textMsg,
+            contextInfo: {
+                forwardingScore: 999,
+                isForwarded: true
+            }
+        }, { quoted: message });
+
+        await sock.sendMessage(chatId, { react: { text: "📧", key: message.key } });
+
     } catch (error) {
         console.error("TempMail Error:", error);
         await sock.sendMessage(chatId, {
@@ -74,6 +73,7 @@ async function checkMailCommand(sock, chatId, message, args) {
 
         const { inbox_count, messages } = response.data;
         if (inbox_count === 0) {
+            await sock.sendMessage(chatId, { react: { text: "📭", key: message.key } });
             return await sock.sendMessage(chatId, {
                 text: "📭 Your inbox is empty."
             }, { quoted: message });
@@ -92,6 +92,9 @@ async function checkMailCommand(sock, chatId, message, args) {
         await sock.sendMessage(chatId, {
             text: messageList
         }, { quoted: message });
+
+        await sock.sendMessage(chatId, { react: { text: "📬", key: message.key } });
+
     } catch (error) {
         console.error("CheckMail Error:", error);
         await sock.sendMessage(chatId, {
