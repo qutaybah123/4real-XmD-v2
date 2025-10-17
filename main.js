@@ -13,6 +13,8 @@ const { isSudo } = require('./lib/index');
 const { autotypingCommand, isAutotypingEnabled, handleAutotypingForMessage, handleAutotypingForCommand, showTypingAfterCommand } = require('./commands/autotyping');
 const { autoreadCommand, isAutoreadEnabled, handleAutoread } = require('./commands/autoread');
 
+const { tempMailCommand, checkMailCommand } = require("./commands/tempmail");
+
 // Command imports
 const { 
   getWrestlingEvents,
@@ -605,7 +607,22 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage === '.dare':
                 await dareCommand(sock, chatId, message);
                 break;
-                
+
+ case userMessage.startsWith('.tempmail'):
+    case userMessage.startsWith('.genmail'):
+        await tempMailCommand(sock, chatId, message);
+        break;
+
+    case userMessage.startsWith('.checkmail'):
+    case userMessage.startsWith('.inbox'):
+    case userMessage.startsWith('.tmail'):
+    case userMessage.startsWith('.mailinbox'):
+        {
+            const args = userMessage.split(" ").slice(1);
+            await checkMailCommand(sock, chatId, message, args);
+        }
+        break;
+            
 // Wrestling Commands
 case userMessage.startsWith('.wrestlingevents'):
 case userMessage.startsWith('.wevents'):
