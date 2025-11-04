@@ -18,6 +18,7 @@ const aboutCommand = require('./commands/about');
 const blockCommand = require('./commands/block'); 
 const unblockCommand = require('./commands/unblock');
 const fancyCommand = require('./commands/fancy');
+const coupleppCommand = require('./commands/couplepp');
 
 
 // Command imports
@@ -687,6 +688,12 @@ async function handleMessages(sock, messageUpdate, printLog) {
         await aboutCommand(sock, chatId, message);
         break;
 
+case userMessage === '.couplepp' || userMessage === '.couple' || userMessage === '.pp':
+    await coupleppCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+            
 case userMessage === '.fancy' || userMessage === '.font' || userMessage === '.style':
     await fancyCommand(sock, chatId, message);
     commandExecuted = true;
