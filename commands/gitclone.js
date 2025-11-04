@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const settings = require("../settings");
 
 async function gitcloneCommand(sock, chatId, message) {
     try {
