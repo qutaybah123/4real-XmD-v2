@@ -36,7 +36,7 @@ async function defineCommand(sock, chatId, message) {
 ✍️ *Example*: ${example}  
 📝 *Synonyms*: ${synonyms}  
 
-> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟɪɢᴀɴɢ ᴛᴇᴄʜs*`;
+> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}*`;
 
             // Send audio pronunciation if available
             if (audio) {
