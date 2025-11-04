@@ -14,7 +14,7 @@ const { autotypingCommand, isAutotypingEnabled, handleAutotypingForMessage, hand
 const { autoreadCommand, isAutoreadEnabled, handleAutoread } = require('./commands/autoread');
 
 const { tempMailCommand, checkMailCommand } = require("./commands/tempmail");
-
+const aboutCommand = require('./commands/about');
 // Command imports
 const { 
   getWrestlingEvents,
@@ -677,6 +677,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 await tempMailCommand(sock, chatId, message);
                 commandExecuted = true;
                 break;
+
+            case userMessage.startsWith('.about') || userMessage.startsWith('.dev'):
+        await aboutCommand(sock, chatId, message);
+        break;
 
             case userMessage.startsWith('.checkmail') || userMessage.startsWith('.inbox') || userMessage.startsWith('.tmail') || userMessage.startsWith('.mailinbox'): {
                 const args = userMessage.split(" ").slice(1);
