@@ -15,6 +15,9 @@ const { autoreadCommand, isAutoreadEnabled, handleAutoread } = require('./comman
 
 const { tempMailCommand, checkMailCommand } = require("./commands/tempmail");
 const aboutCommand = require('./commands/about');
+const blockCommand = require('./commands/block'); 
+const unblockCommand = require('./commands/unblock');
+
 // Command imports
 const { 
   getWrestlingEvents,
@@ -842,6 +845,15 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 commandExecuted = true;
                 break;
 
+             case userMessage.startsWith('.block'):
+        await blockCommand(sock, chatId, message);
+        break;
+    
+    case userMessage.startsWith('.unblock'):
+        await unblockCommand(sock, chatId, message);
+        break;
+
+            
             case userMessage === '.vv':
                 await viewOnceCommand(sock, chatId, message);
                 commandExecuted = true;
