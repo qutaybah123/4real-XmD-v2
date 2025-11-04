@@ -36,7 +36,7 @@ async function gdriveCommand(sock, chatId, message) {
                 document: { url: data.result.download },
                 mimetype: data.result.mimetype || "application/octet-stream",
                 fileName: data.result.filename || "gdrive_download",
-                caption: "> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟɪɢᴀɴɢ ᴛᴇᴄʜs*"
+                caption: "> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}*"
             }, { quoted: message });
 
             await sock.sendMessage(chatId, {
