@@ -26,6 +26,7 @@ const lovetestCommand = require('./commands/lovetest');
 const emojiCommand = require('./commands/emoji');
 const marigeCommand = require('./commands/marige');
 const gitcloneCommand = require('./commands/gitclone');
+const ringtoneCommand = require('./commands/ringtone');
 
 // Command imports
 const { 
@@ -731,7 +732,11 @@ case userMessage === '.fancy' || userMessage === '.font' || userMessage === '.st
 
               case userMessage.startsWith('.gitclone'):
         await gitcloneCommand(sock, chatId, message);
-        break
+        break;
+
+             case userMessage.startsWith('.ringtone') || userMessage.startsWith('.ringtones') || userMessage.startsWith('.ring'):
+        await ringtoneCommand(sock, chatId, message);
+        break;
             
             case userMessage.startsWith('.checkmail') || userMessage.startsWith('.inbox') || userMessage.startsWith('.tmail') || userMessage.startsWith('.mailinbox'): {
                 const args = userMessage.split(" ").slice(1);
