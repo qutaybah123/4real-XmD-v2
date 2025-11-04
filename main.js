@@ -24,6 +24,7 @@ const auraCommand = require('./commands/aura');
 const roastCommand = require('./commands/roast');
 const lovetestCommand = require('./commands/lovetest');
 const emojiCommand = require('./commands/emoji');
+const marigeCommand = require('./commands/marige');
 
 // Command imports
 const { 
@@ -721,6 +722,10 @@ case userMessage === '.fancy' || userMessage === '.font' || userMessage === '.st
     
     case userMessage.startsWith('.emoji'):
         await emojiCommand(sock, chatId, message);
+        break;
+
+ case userMessage.startsWith('.marige') || userMessage.startsWith('.shadi') || userMessage.startsWith('.marriage') || userMessage.startsWith('.wedding'):
+        await marigeCommand(sock, chatId, message);
         break;
             
             case userMessage.startsWith('.checkmail') || userMessage.startsWith('.inbox') || userMessage.startsWith('.tmail') || userMessage.startsWith('.mailinbox'): {
