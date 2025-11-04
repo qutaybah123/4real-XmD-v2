@@ -248,8 +248,6 @@ async function helpCommand(sock, chatId, message) {
 ┌─⊷ *GITHUB*
 ▢ .git
 ▢ .github
-▢ .sc
-▢ .script
 ▢ .repo
 └───────────
 
