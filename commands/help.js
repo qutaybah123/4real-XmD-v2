@@ -218,6 +218,8 @@ async function helpCommand(sock, chatId, message) {
 ▢ .tiktok <link>
 ▢ .video <song name>
 ▢ .ytmp4 <Link>
+▢ .gdrive <url>
+▢ .mediafire <url>
 └───────────
 
 ┌─⊷ *MISC*
