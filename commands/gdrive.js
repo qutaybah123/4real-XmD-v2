@@ -1,4 +1,5 @@
 const axios = require("axios");
+const settings = require("../settings");
 
 async function gdriveCommand(sock, chatId, message) {
     try {
