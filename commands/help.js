@@ -82,6 +82,8 @@ async function helpCommand(sock, chatId, message) {
 ▢ .pmblocker setmsg <text>
 ▢ .setmention <reply to msg/media>
 ▢ .mention <on/off>
+▢ .block
+▢ .unblock
 └───────────
 
 ┌─⊷ *STICKERS / IMAGES*
