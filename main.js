@@ -19,7 +19,11 @@ const blockCommand = require('./commands/block');
 const unblockCommand = require('./commands/unblock');
 const fancyCommand = require('./commands/fancy');
 const coupleppCommand = require('./commands/couplepp');
-
+const compatibilityCommand = require('./commands/compatibility');
+const auraCommand = require('./commands/aura');
+const roastCommand = require('./commands/roast');
+const lovetestCommand = require('./commands/lovetest');
+const emojiCommand = require('./commands/emoji');
 
 // Command imports
 const { 
@@ -699,7 +703,25 @@ case userMessage === '.fancy' || userMessage === '.font' || userMessage === '.st
     commandExecuted = true;
     break;
 
+ case userMessage.startsWith('.compatibility') || userMessage.startsWith('.friend') || userMessage.startsWith('.fcheck'):
+        await compatibilityCommand(sock, chatId, message);
+        break;
 
+             case userMessage.startsWith('.aura'):
+        await auraCommand(sock, chatId, message);
+        break;
+
+             case userMessage.startsWith('.roast'):
+        await roastCommand(sock, chatId, message);
+        break;
+
+            case userMessage.startsWith('.lovetest'):
+        await lovetestCommand(sock, chatId, message);
+        break;
+    
+    case userMessage.startsWith('.emoji'):
+        await emojiCommand(sock, chatId, message);
+        break;
             
             case userMessage.startsWith('.checkmail') || userMessage.startsWith('.inbox') || userMessage.startsWith('.tmail') || userMessage.startsWith('.mailinbox'): {
                 const args = userMessage.split(" ").slice(1);
