@@ -14,6 +14,7 @@ async function helpCommand(sock, chatId, message) {
 ┌─⊷ *GENERAL*
 ▢ .help or .menu
 ▢ .ping
+▢ .about
 ▢ .alive
 ▢ .tts <text>
 ▢ .owner
