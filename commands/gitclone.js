@@ -47,7 +47,7 @@ async function gitcloneCommand(sock, chatId, message) {
 
             // Notify user of the download
             await sock.sendMessage(chatId, {
-                text: `📥 *Downloading repository...*\n\n*Repository:* ${username}/${repo}\n*Filename:* ${fileName}\n\n> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟɪɢᴀɴɢ ᴛᴇᴄʜs*`
+                text: `📥 *Downloading repository...*\n\n*Repository:* ${username}/${repo}\n*Filename:* ${fileName}\n\n> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}*`
             }, { quoted: message });
 
             // Send the zip file to the user
