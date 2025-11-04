@@ -98,7 +98,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .tgsticker <Link>
 ▢ .meme
 ▢ .take <packname> 
-▢ .emojimix <emj1>+<emj2>
 ▢ .igs <insta link>
 ▢ .igsc <insta link>
 └───────────
@@ -142,6 +141,12 @@ async function helpCommand(sock, chatId, message) {
 
 ┌─⊷ *FUN*
 ▢ .compliment @user
+▢ .fcheck @user1 @user2 
+▢ .aura @user
+▢ .roast @user
+▢ .lovetest @user1 @user2
+▢ .emoji <text>
+▢ .emojimix <emj1>+<emj2>
 ▢ .insult @user
 ▢ .flirt 
 ▢ .shayari
