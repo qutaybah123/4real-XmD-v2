@@ -254,8 +254,7 @@ async function helpCommand(sock, chatId, message) {
 
 ┌─⊷ *GITHUB*
 ▢ .git
-▢ .github
-▢ .repo
+▢ .gitclone <github-url>
 └───────────
 
 Join our channel for updates:`;
