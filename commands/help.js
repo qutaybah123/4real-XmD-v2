@@ -36,6 +36,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .tempmail
 ▢ .checkmail <session_id>
 ▢ .fancy
+▢ .couplepp
 └───────────
 
 ┌─⊷ *ADMIN*
