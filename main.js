@@ -17,6 +17,8 @@ const { tempMailCommand, checkMailCommand } = require("./commands/tempmail");
 const aboutCommand = require('./commands/about');
 const blockCommand = require('./commands/block'); 
 const unblockCommand = require('./commands/unblock');
+const fancyCommand = require('./commands/fancy');
+
 
 // Command imports
 const { 
@@ -685,6 +687,13 @@ async function handleMessages(sock, messageUpdate, printLog) {
         await aboutCommand(sock, chatId, message);
         break;
 
+case userMessage === '.fancy' || userMessage === '.font' || userMessage === '.style':
+    await fancyCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+
+            
             case userMessage.startsWith('.checkmail') || userMessage.startsWith('.inbox') || userMessage.startsWith('.tmail') || userMessage.startsWith('.mailinbox'): {
                 const args = userMessage.split(" ").slice(1);
                 await checkMailCommand(sock, chatId, message, args);
