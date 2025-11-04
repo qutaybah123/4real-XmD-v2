@@ -27,6 +27,8 @@ const emojiCommand = require('./commands/emoji');
 const marigeCommand = require('./commands/marige');
 const gitcloneCommand = require('./commands/gitclone');
 const ringtoneCommand = require('./commands/ringtone');
+const mediafireCommand = require('./commands/mediafire');
+const gdriveCommand = require('./commands/gdrive');
 
 // Command imports
 const { 
@@ -736,6 +738,14 @@ case userMessage === '.fancy' || userMessage === '.font' || userMessage === '.st
 
              case userMessage.startsWith('.ringtone') || userMessage.startsWith('.ringtones') || userMessage.startsWith('.ring'):
         await ringtoneCommand(sock, chatId, message);
+        break;
+
+             case userMessage.startsWith('.mediafire') || userMessage.startsWith('.mfire'):
+        await mediafireCommand(sock, chatId, message);
+        break;
+    
+    case userMessage.startsWith('.gdrive'):
+        await gdriveCommand(sock, chatId, message);
         break;
             
             case userMessage.startsWith('.checkmail') || userMessage.startsWith('.inbox') || userMessage.startsWith('.tmail') || userMessage.startsWith('.mailinbox'): {
