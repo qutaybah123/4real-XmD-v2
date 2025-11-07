@@ -35,9 +35,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .url
 ▢ .tempmail
 ▢ .checkmail <session_id>
-▢ .fancy
-▢ .couplepp
-▢ .ringtone <query>
 └───────────
 
 ┌─⊷ *ADMIN*
@@ -85,8 +82,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .pmblocker setmsg <text>
 ▢ .setmention <reply to msg/media>
 ▢ .mention <on/off>
-▢ .block
-▢ .unblock
 └───────────
 
 ┌─⊷ *STICKERS / IMAGES*
