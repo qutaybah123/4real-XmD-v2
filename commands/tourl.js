@@ -77,7 +77,7 @@ async function tourlCommand(sock, chatId, message) {
 ┃ *🌐 sᴇʀᴠɪᴄᴇ:* ${serviceUsed}
 ┃ *⏳ ᴜʀʟ:* ${mediaUrl}
 ╰╼━━━━━━━━━━━━━━━━╾╯
-> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟɪɢᴀɴɢ ᴛᴇᴄʜs*`;
+> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}*`;
 
         await sock.sendMessage(chatId, { text: resultText }, { quoted: message });
 
