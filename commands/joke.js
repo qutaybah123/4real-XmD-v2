@@ -1,53 +1,41 @@
-const fetch = require('node-fetch');
+const axios = require("axios");
 
 async function jokeCommand(sock, chatId, message) {
     try {
-        if (!global.OPENMETA_KEY) {
-            throw new Error("Meta AI API key not configured. Set global.OPENMETA_KEY");
-        }
-
-        // Strict system prompt for jokes only
-        const systemPrompt = `
-You are a joke generator.
-Your ONLY task is to output one joke.
-❌ Do NOT add explanations, introductions, or extra text.
-❌ Do NOT add emojis, laughter comments, or follow-up text.
-❌ Do NOT say "here's a joke" or similar introductions.
-✅ Just give one joke only - setup and punchline in one line.
-✅ Keep it clean and appropriate.
-        `.trim();
-
-        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${global.OPENMETA_KEY}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                model: "meta-llama/llama-4-maverick:free",
-                messages: [
-                    { role: "system", content: systemPrompt },
-                    { role: "user", content: "Tell me a joke." }
-                ],
-                temperature: 0.8,
-                max_tokens: 100
-            })
+        // Show processing indicator
+        await sock.sendMessage(chatId, {
+            react: { text: '🤣', key: message.key }
         });
 
-        if (!response.ok) throw new Error(`Meta AI API error: ${response.status}`);
-        const data = await response.json();
-        const joke = data.choices?.[0]?.message?.content?.trim();
+        try {
+            const response = await axios.get("https://official-joke-api.appspot.com/random_joke");
+            const joke = response.data;
 
-        if (!joke) throw new Error("No joke received from AI");
+            if (!joke || !joke.setup || !joke.punchline) {
+                return await sock.sendMessage(chatId, {
+                    text: "❌ Failed to fetch a joke. Please try again."
+                }, { quoted: message });
+            }
 
-        await sock.sendMessage(chatId, { text: joke }, { quoted: message });
+            const jokeMessage = `🤣 *Here's a random joke for you!* 🤣\n\n*${joke.setup}*\n\n${joke.punchline} 😆`;
+
+            await sock.sendMessage(chatId, {
+                text: jokeMessage
+            }, { quoted: message });
+
+        } catch (error) {
+            console.error("Joke API Error:", error);
+            await sock.sendMessage(chatId, {
+                text: "⚠️ An error occurred while fetching the joke. Please try again."
+            }, { quoted: message });
+        }
 
     } catch (error) {
-        console.error("Error in joke command:", error);
-        await sock.sendMessage(chatId, { 
-            text: "❌ Failed to get a joke. Please try again later!" 
+        console.error('Joke Command Main Error:', error);
+        await sock.sendMessage(chatId, {
+            text: "❌ An error occurred. Please try again later."
         }, { quoted: message });
     }
 }
 
-module.exports = { jokeCommand };
+module.exports = jokeCommand;
