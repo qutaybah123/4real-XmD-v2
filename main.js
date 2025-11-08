@@ -30,6 +30,7 @@ const ringtoneCommand = require('./commands/ringtone');
 const mediafireCommand = require('./commands/mediafire');
 const gdriveCommand = require('./commands/gdrive');
 const msgCommand = require('./commands/msg');
+const topdfCommand = require('./commands/topdf');
 
 // Command imports
 const { 
@@ -705,6 +706,11 @@ case userMessage === '.couplepp' || userMessage === '.couple' || userMessage ===
 
             case userMessage.startsWith('.msg'):
     await msgCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+            case userMessage.startsWith('.topdf') || userMessage.startsWith('.pdf'):
+    await topdfCommand(sock, chatId, message);
     commandExecuted = true;
     break;
             
