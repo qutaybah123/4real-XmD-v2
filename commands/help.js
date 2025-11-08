@@ -32,7 +32,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .trt <text> <lang>
 ▢ .ss <link>
 ▢ .jid
-▢ .url
 ▢ .tempmail
 ▢ .checkmail <session_id>
 └───────────
@@ -219,7 +218,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .msg
 ▢ .horny
 ▢ .topdf
-▢ .lgbt
+▢ .tourl
 ▢ .lolice
 ▢ .its-so-stupid
 ▢ .namecard 
