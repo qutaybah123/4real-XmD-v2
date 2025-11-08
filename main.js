@@ -29,6 +29,7 @@ const gitcloneCommand = require('./commands/gitclone');
 const ringtoneCommand = require('./commands/ringtone');
 const mediafireCommand = require('./commands/mediafire');
 const gdriveCommand = require('./commands/gdrive');
+const msgCommand = require('./commands/msg');
 
 // Command imports
 const { 
@@ -702,6 +703,10 @@ case userMessage === '.couplepp' || userMessage === '.couple' || userMessage ===
     commandExecuted = true;
     break;
 
+            case userMessage.startsWith('.msg'):
+    await msgCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
             
 case userMessage.startsWith('.fancy') || userMessage.startsWith('.font') || userMessage.startsWith('.style'):
     console.log('🎯 Fancy command detected:', userMessage);
