@@ -3,6 +3,7 @@ const FormData = require("form-data");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
+const settings = require("../settings");
 const { downloadContentFromMessage } = require("@whiskeysockets/baileys");
 
 async function tourlCommand(sock, chatId, message) {
