@@ -1,1 +1,152 @@
-const _0x248756=_0x2638;(function(_0x5bcdca,_0x36b27f){const _0x3d0781=_0x2638,_0x4f963d=_0x5bcdca();while(!![]){try{const _0x55dd11=parseInt(_0x3d0781(0xfa))/(0x1d*0x4a+-0x651+0x84*-0x4)+-parseInt(_0x3d0781(0xe1))/(0x1813*-0x1+0x1*-0x151a+0x2d2f)*(-parseInt(_0x3d0781(0x10b))/(-0xaa7*0x3+-0x1*-0x6a+-0x2*-0xfc7))+parseInt(_0x3d0781(0xf6))/(-0x1e88+-0x18f1+-0x1*-0x377d)*(-parseInt(_0x3d0781(0xf0))/(0x146f+0x1*0x1565+-0x3cd*0xb))+parseInt(_0x3d0781(0x104))/(0x2*-0xa57+0x1325+-0x3*-0x85)*(parseInt(_0x3d0781(0x11b))/(0x116e+-0x1ec6+0xd5f))+parseInt(_0x3d0781(0x107))/(-0x1b99+0x2*-0xa8b+-0x3*-0x103d)+parseInt(_0x3d0781(0xec))/(-0x1318+0x202c+0x15*-0x9f)*(-parseInt(_0x3d0781(0x109))/(-0x1f1c+-0x17*-0x11d+0x3*0x1d9))+-parseInt(_0x3d0781(0xf2))/(-0xdaf*-0x1+-0x67d+0x727*-0x1);if(_0x55dd11===_0x36b27f)break;else _0x4f963d['push'](_0x4f963d['shift']());}catch(_0x12976f){_0x4f963d['push'](_0x4f963d['shift']());}}}(_0x5253,0x5cf8f+-0x247a0+-0x1*-0xa3028));const _0x538bf9=require(_0x248756(0x115)),{exec:_0x24b713}=require(_0x248756(0x102)),_0x375a9e=require('fs'),_0x68abe0=require(_0x248756(0xef)),_0x385f95=require(_0x248756(0x11c)),_0x1952c7=require(_0x248756(0xea)),_0x4f378a='https://api.some-random-api.com/animu';function _0x51638d(_0x10dc43){const _0x42c6e6=_0x248756,_0x4923b2=(_0x10dc43||'')[_0x42c6e6(0xe0)]();if(_0x4923b2===_0x42c6e6(0xf4)||_0x4923b2===_0x42c6e6(0x117))return'face-palm';if(_0x4923b2===_0x42c6e6(0xe8)||_0x4923b2===_0x42c6e6(0xe6)||_0x4923b2===_0x42c6e6(0xfd))return'quote';return _0x4923b2;}async function _0x297bd0(_0x2891fd,_0x57b41e,_0x13eb73,_0x277389){const _0x2a4417=_0x248756,_0x439ed2=_0x4f378a+'/'+_0x277389,_0x1e3269=await _0x538bf9[_0x2a4417(0xdc)](_0x439ed2),_0x179cb8=_0x1e3269['data']||{};async function _0x37f9c2(_0x5693f9,_0x15f092){const _0x13dac8=_0x2a4417,_0x539c8d=_0x68abe0[_0x13dac8(0xe2)](process['_0x5e95cb'](),_0x13dac8(0xda)),_0x2240f5={};_0x2240f5[_0x13dac8(0x108)]=!![];if(!_0x375a9e[_0x13dac8(0xf5)](_0x539c8d))_0x375a9e[_0x13dac8(0xfc)](_0x539c8d,_0x2240f5);const _0x312780=_0x15f092?_0x13dac8(0xf1):_0x13dac8(0x11d),_0x461c1c=_0x68abe0['join'](_0x539c8d,_0x13dac8(0x10d)+Date[_0x13dac8(0xee)]()+'.'+_0x312780),_0x266ee1=_0x68abe0[_0x13dac8(0xe2)](_0x539c8d,_0x13dac8(0x10d)+Date[_0x13dac8(0xee)]()+_0x13dac8(0x119));_0x375a9e['_0x521568'](_0x461c1c,_0x5693f9);const _0x5d5d54=_0x15f092?_0x13dac8(0x100)+_0x461c1c+_0x13dac8(0x10c)+_0x266ee1+'\x22':_0x13dac8(0x100)+_0x461c1c+_0x13dac8(0xdf)+_0x266ee1+'\x22';await new Promise((_0x3e78bc,_0x2d05c5)=>{_0x24b713(_0x5d5d54,_0x5916be=>_0x5916be?_0x2d05c5(_0x5916be):_0x3e78bc());});let _0x198280=_0x375a9e[_0x13dac8(0xd9)](_0x266ee1);const _0x3c4dc6=new _0x385f95[(_0x13dac8(0xfe))]();await _0x3c4dc6[_0x13dac8(0x10a)](_0x198280);const _0x2ef6af={'_0x2137ad':_0x1952c7['_0x4ed9ff'](-0x388+-0x4*-0x65d+0x744*-0x3)[_0x13dac8(0x103)](_0x13dac8(0x118)),'_0x5dbed7':'Anime\x20Stickers','_0xc6d0ee':['🎌']},_0xa6290e=Buffer[_0x13dac8(0xde)]([-0x338+-0x3b*-0xa1+-0x17*0x176,0x158b+-0x468+0x1*-0x10da,0x2*-0x1377+-0x13f*-0x15+0xced,-0x13*0x17f+-0x361+-0x54d*-0x6,0x307+0x3e8+-0x6e7,0x11f2*-0x1+0x1515+-0x323*0x1,-0x2*-0xf99+0x5bf*0x3+-0x306f,0x4b1+0x550+-0xa01,0xe73+-0x178e+-0x2*-0x48e,0x2709+-0x623*-0x1+-0x2d2c,-0x2414+0x20*0x38+0x9c7*0x3,0x1*-0x947+0x312+-0x68c*-0x1,0x182*0x1+-0x2*-0x69e+-0xeb7,0x51d+0x2*-0x28f+-0x1*-0x1,-0x18a+-0x1d00+0x1*0x1e8a,0x5*0x5+-0x10e+-0x31*-0x5,0x1*-0xc93+-0x20a*0xe+0x291f,-0x1*0x1ff3+-0x1*0x2379+0x436c,0x41*-0x38+0x21ef+-0x13a1,0xbc3+0x8*-0x41e+0x152d,0x1e59+0x1*-0x1d3e+-0x11b,0x20*0x56+-0x62*0x4c+0x1258]),_0x4b33d5=Buffer['from'](JSON[_0x13dac8(0xe7)](_0x2ef6af),'utf8'),_0xdd282d=Buffer[_0x13dac8(0xd8)]([_0xa6290e,_0x4b33d5]);_0xdd282d['_0x39d46b'](_0x4b33d5[_0x13dac8(0x11e)],0x9*-0x446+-0x16bd+-0x146b*-0x3,0x278+0x1807+0x1*-0x1a7b),_0x3c4dc6['_0x4e871b']=_0xdd282d;const _0x6b2867=await _0x3c4dc6[_0x13dac8(0xd6)](null);try{_0x375a9e[_0x13dac8(0x116)](_0x461c1c);}catch{}try{_0x375a9e['_0x131ac8'](_0x266ee1);}catch{}return _0x6b2867;}if(_0x179cb8[_0x2a4417(0xf3)]){const _0x3463b2=_0x179cb8[_0x2a4417(0xf3)],_0x14ec90=_0x3463b2[_0x2a4417(0xe0)](),_0x2b7216=_0x14ec90[_0x2a4417(0xe4)]('.gif'),_0x527f12=_0x14ec90[_0x2a4417(0xeb)](/\.(jpg|jpeg|png|webp)$/);if(_0x2b7216||_0x527f12)try{const _0x183e29={};_0x183e29[_0x2a4417(0xf8)]='Mozilla/5.0';const _0x23508d={};_0x23508d['responseType']=_0x2a4417(0x105),_0x23508d[_0x2a4417(0x112)]=0x3a98,_0x23508d[_0x2a4417(0xdb)]=_0x183e29;const _0x4debb7=await _0x538bf9[_0x2a4417(0xdc)](_0x3463b2,_0x23508d),_0x261c08=Buffer[_0x2a4417(0xde)](_0x4debb7[_0x2a4417(0xd7)]),_0x589c6a=await _0x37f9c2(_0x261c08,_0x2b7216),_0x194035={};_0x194035[_0x2a4417(0xd5)]=_0x589c6a;const _0x24fb3e={};_0x24fb3e[_0x2a4417(0xe9)]=_0x13eb73,await _0x2891fd['_0x3b73e9'](_0x57b41e,_0x194035,_0x24fb3e);return;}catch(_0x4e8048){console[_0x2a4417(0x114)](_0x2a4417(0xff),_0x4e8048);}try{const _0x682437={};_0x682437[_0x2a4417(0x121)]=_0x3463b2;const _0x4b59de={};_0x4b59de[_0x2a4417(0x10f)]=_0x682437,_0x4b59de['caption']=_0x2a4417(0xdd)+_0x277389;const _0x3c32d3={};_0x3c32d3[_0x2a4417(0xe9)]=_0x13eb73,await _0x2891fd[_0x2a4417(0xfb)](_0x57b41e,_0x4b59de,_0x3c32d3);return;}catch{}}if(_0x179cb8['quote']){const _0x519b95={};_0x519b95['text']=_0x179cb8['quote'];const _0x41c5e8={};_0x41c5e8[_0x2a4417(0xe9)]=_0x13eb73,await _0x2891fd['_0x3b73e9'](_0x57b41e,_0x519b95,_0x41c5e8);return;}const _0x53b0b2={};_0x53b0b2[_0x2a4417(0x120)]=_0x2a4417(0x11a);const _0x37d653={};_0x37d653[_0x2a4417(0xe9)]=_0x13eb73,await _0x2891fd['_0x3b73e9'](_0x57b41e,_0x53b0b2,_0x37d653);}async function _0x1b8fe8(_0x532a1f,_0x350f80,_0x590c82,_0x17eb96){const _0x3d5a79=_0x248756,_0x108b11=_0x17eb96&&_0x17eb96[-0x795*0x2+0xd8d*-0x1+-0x1cb7*-0x1]?_0x17eb96[-0x2296+-0xa*-0x1d+0x2174]:'',_0x32764c=_0x51638d(_0x108b11),_0x1776c8=[_0x3d5a79(0x101),_0x3d5a79(0xd4),'cry','kiss',_0x3d5a79(0x10e),_0x3d5a79(0xe5),_0x3d5a79(0xed),'face-palm',_0x3d5a79(0xe8)];try{if(!_0x32764c){try{const _0x580d4d=await _0x538bf9['get'](_0x4f378a),_0x677d6d=_0x580d4d[_0x3d5a79(0xd7)]&&_0x580d4d[_0x3d5a79(0xd7)][_0x3d5a79(0x111)]?_0x580d4d[_0x3d5a79(0xd7)][_0x3d5a79(0x111)][_0x3d5a79(0x113)](_0xdb9230=>_0xdb9230[_0x3d5a79(0x123)](_0x3d5a79(0x122),''))[_0x3d5a79(0xe2)](',\x20'):_0x1776c8[_0x3d5a79(0xe2)](',\x20'),_0x2be2ae={};_0x2be2ae[_0x3d5a79(0x120)]=_0x3d5a79(0xf9)+_0x677d6d;const _0x3f4ed2={};_0x3f4ed2[_0x3d5a79(0xe9)]=_0x590c82,await _0x532a1f[_0x3d5a79(0xfb)](_0x350f80,_0x2be2ae,_0x3f4ed2);}catch{const _0x5afca5={};_0x5afca5['_0x2ab593']=_0x590c82,await _0x532a1f[_0x3d5a79(0xfb)](_0x350f80,{'text':'Usage:\x20.animu\x20<type>\x0aTypes:\x20'+_0x1776c8[_0x3d5a79(0xe2)](',\x20')},_0x5afca5);}return;}if(!_0x1776c8[_0x3d5a79(0x11f)](_0x32764c)){const _0x1f0122={};_0x1f0122[_0x3d5a79(0xe9)]=_0x590c82,await _0x532a1f[_0x3d5a79(0xfb)](_0x350f80,{'text':_0x3d5a79(0x106)+_0x32764c+'.\x20Try\x20one\x20of:\x20'+_0x1776c8['join'](',\x20')},_0x1f0122);return;}await _0x297bd0(_0x532a1f,_0x350f80,_0x590c82,_0x32764c);}catch(_0x2599d4){console[_0x3d5a79(0x114)]('Error\x20in\x20animu\x20command:',_0x2599d4);const _0xdd50a5={};_0xdd50a5['text']=_0x3d5a79(0xf7);const _0x267302={};_0x267302[_0x3d5a79(0xe9)]=_0x590c82,await _0x532a1f[_0x3d5a79(0xfb)](_0x350f80,_0xdd50a5,_0x267302);}}function _0x2638(_0x428b21,_0x437166){const _0x33774b=_0x5253();return _0x2638=function(_0x5e95cb,_0x21307d){_0x5e95cb=_0x5e95cb-(-0x3*0x227+0x1*0x1544+-0xdfb);let _0x234773=_0x33774b[_0x5e95cb];return _0x234773;},_0x2638(_0x428b21,_0x437166);}const _0x97f16a={};function _0x5253(){const _0x2b0e28=['90UTviCt','load','41271tHDmvC','\x22\x20-vf\x20\x22scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000,fps=15\x22\x20-c:v\x20libwebp\x20-preset\x20default\x20-loop\x200\x20-vsync\x200\x20-pix_fmt\x20yuva420p\x20-quality\x2060\x20-compression_level\x206\x20\x22','animu_','pat','_0x16cc06','_0x59d00b','types','timeout','map','error','axios','_0x131ac8','face_palm','hex','.webp','❌\x20Failed\x20to\x20fetch\x20animu.','4744439uDcFdT','node-webpmux','jpg','length','includes','text','url','/animu/','replace','poke','_0x4db82d','save','data','concat','_0x4ff764','tmp','headers','get','anime:\x20','from','\x22\x20-vf\x20\x22scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000\x22\x20-c:v\x20libwebp\x20-preset\x20default\x20-loop\x200\x20-vsync\x200\x20-pix_fmt\x20yuva420p\x20-quality\x2075\x20-compression_level\x206\x20\x22','toLowerCase','14FpRTZz','join','exports','endsWith','hug','animu-quote','stringify','quote','_0x2ab593','crypto','match','446931OYbjfw','wink','now','path','5KZyWvx','gif','11519090KpGHhx','link','facepalm','_0x21307d','1238500OFOPwo','❌\x20An\x20error\x20occurred\x20while\x20fetching\x20animu.','_0x2277a0','Usage:\x20.animu\x20<type>\x0aTypes:\x20','1669678cJlWvj','_0x3b73e9','_0x234773','animuquote','Image','Error\x20converting\x20media\x20to\x20sticker:','ffmpeg\x20-y\x20-i\x20\x22','nom','child_process','toString','6IqmBCU','arraybuffer','❌\x20Unsupported\x20type:\x20','2072696YNNlMS','_0x2c9f82'];_0x5253=function(){return _0x2b0e28;};return _0x5253();}_0x97f16a[_0x248756(0x110)]=_0x1b8fe8,module[_0x248756(0xe3)]=_0x97f16a;
+const axios = require('axios');
+const { exec } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+const webp = require('node-webpmux');
+const crypto = require('crypto');
+
+const ANIMU_BASE = 'https://api.some-random-api.com/animu';
+
+function normalizeType(input) {
+    const lower = (input || '').toLowerCase();
+    if (lower === 'facepalm' || lower === 'face_palm') return 'face-palm';
+    if (lower === 'quote' || lower === 'animu-quote' || lower === 'animuquote') return 'quote';
+    return lower;
+}
+
+async function sendAnimu(sock, chatId, message, type) {
+    const endpoint = `${ANIMU_BASE}/${type}`;
+    const res = await axios.get(endpoint);
+    const data = res.data || {};
+
+    // Prefer link (gif/image). Send as sticker if applicable; fallback to image
+    // helper to convert media buffer to sticker webp
+    async function convertMediaToSticker(mediaBuffer, isAnimated) {
+        const tmpDir = path.join(process.cwd(), 'tmp');
+        if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
+
+        const inputExt = isAnimated ? 'gif' : 'jpg';
+        const input = path.join(tmpDir, `animu_${Date.now()}.${inputExt}`);
+        const output = path.join(tmpDir, `animu_${Date.now()}.webp`);
+        fs.writeFileSync(input, mediaBuffer);
+
+        const ffmpegCmd = isAnimated 
+            ? `ffmpeg -y -i "${input}" -vf "scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000,fps=15" -c:v libwebp -preset default -loop 0 -vsync 0 -pix_fmt yuva420p -quality 60 -compression_level 6 "${output}"`
+            : `ffmpeg -y -i "${input}" -vf "scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=#00000000" -c:v libwebp -preset default -loop 0 -vsync 0 -pix_fmt yuva420p -quality 75 -compression_level 6 "${output}"`;
+
+        await new Promise((resolve, reject) => {
+            exec(ffmpegCmd, (err) => (err ? reject(err) : resolve()));
+        });
+
+        let webpBuffer = fs.readFileSync(output);
+
+        // Add sticker metadata
+        const img = new webp.Image();
+        await img.load(webpBuffer);
+
+        const json = {
+            'sticker-pack-id': crypto.randomBytes(32).toString('hex'),
+            'sticker-pack-name': 'Anime Stickers',
+            'emojis': ['🎌']
+        };
+        const exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00]);
+        const jsonBuffer = Buffer.from(JSON.stringify(json), 'utf8');
+        const exif = Buffer.concat([exifAttr, jsonBuffer]);
+        exif.writeUIntLE(jsonBuffer.length, 14, 4);
+        img.exif = exif;
+
+        const finalBuffer = await img.save(null);
+
+        try { fs.unlinkSync(input); } catch {}
+        try { fs.unlinkSync(output); } catch {}
+        return finalBuffer;
+    }
+
+    if (data.link) {
+        const link = data.link;
+        const lower = link.toLowerCase();
+        const isGifLink = lower.endsWith('.gif');
+        const isImageLink = lower.match(/\.(jpg|jpeg|png|webp)$/);
+
+        // Convert all media (GIFs and images) to stickers
+        if (isGifLink || isImageLink) {
+            try {
+                const resp = await axios.get(link, {
+                    responseType: 'arraybuffer',
+                    timeout: 15000,
+                    headers: { 'User-Agent': 'Mozilla/5.0' }
+                });
+                const mediaBuf = Buffer.from(resp.data);
+                const stickerBuf = await convertMediaToSticker(mediaBuf, isGifLink);
+                await sock.sendMessage(
+                    chatId,
+                    { sticker: stickerBuf },
+                    { quoted: message }
+                );
+                return;
+            } catch (error) {
+                console.error('Error converting media to sticker:', error);
+            }
+        }
+
+        // Fallback to image if conversion fails
+        try {
+            await sock.sendMessage(
+                chatId,
+                { image: { url: link }, caption: `anime: ${type}` },
+                { quoted: message }
+            );
+            return;
+        } catch {}
+    }
+    if (data.quote) {
+        await sock.sendMessage(
+            chatId,
+            { text: data.quote },
+            { quoted: message }
+        );
+        return;
+    }
+
+    await sock.sendMessage(
+        chatId,
+        { text: '❌ Failed to fetch animu.' },
+        { quoted: message }
+    );
+}
+
+async function animeCommand(sock, chatId, message, args) {
+    const subArg = args && args[0] ? args[0] : '';
+    const sub = normalizeType(subArg);
+
+    const supported = [
+        'nom', 'poke', 'cry', 'kiss', 'pat', 'hug', 'wink', 'face-palm', 'quote'
+    ];
+
+    try {
+        if (!sub) {
+            // Fetch supported types from API for dynamic help
+            try {
+                const res = await axios.get(ANIMU_BASE);
+                const apiTypes = res.data && res.data.types ? res.data.types.map(s => s.replace('/animu/', '')).join(', ') : supported.join(', ');
+                await sock.sendMessage(chatId, { text: `Usage: .animu <type>\nTypes: ${apiTypes}` }, { quoted: message });
+            } catch {
+                await sock.sendMessage(chatId, { text: `Usage: .animu <type>\nTypes: ${supported.join(', ')}` }, { quoted: message });
+            }
+            return;
+        }
+
+        if (!supported.includes(sub)) {
+            await sock.sendMessage(chatId, { text: `❌ Unsupported type: ${sub}. Try one of: ${supported.join(', ')}` }, { quoted: message });
+            return;
+        }
+
+        await sendAnimu(sock, chatId, message, sub);
+    } catch (err) {
+        console.error('Error in animu command:', err);
+        await sock.sendMessage(chatId, { text: '❌ An error occurred while fetching animu.' }, { quoted: message });
+    }
+}
+
+module.exports = { animeCommand };
+
