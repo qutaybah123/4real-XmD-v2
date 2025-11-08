@@ -144,7 +144,7 @@ global.packname = settings.packname;
 global.author = settings.author;
 global.channelLink = "https://whatsapp.com/channel/0029Va90zAnIHphOuO8Msp3A";
 global.ytch = "@Ligang Techs";
-global.botImageUrl = "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg";
+global.botImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbzLpxAyMMFyvSATmkrx_VXMki2k0LyNl7WIDglkASBQ&s=10";
 global.OPENGEMINI2_0FLASH_KEY = "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";
 global.OPENGEMINI1_5FLASH_KEY = "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";  
 global.OPENDEEPSEEKR1_KEY = "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";
@@ -703,11 +703,11 @@ case userMessage === '.couplepp' || userMessage === '.couple' || userMessage ===
     break;
 
             
-case userMessage === '.fancy' || userMessage === '.font' || userMessage === '.style':
+case userMessage.startsWith('.fancy') || userMessage.startsWith('.font') || userMessage.startsWith('.style'):
+    console.log('🎯 Fancy command detected:', userMessage);
     await fancyCommand(sock, chatId, message);
     commandExecuted = true;
-    break;
-
+    break;    
  case userMessage.startsWith('.compatibility') || userMessage.startsWith('.friend') || userMessage.startsWith('.fcheck'):
         await compatibilityCommand(sock, chatId, message);
         break;
@@ -1436,7 +1436,7 @@ case userMessage.startsWith('.watercolor'):
                 commandExecuted = false;
                 break;
         }
-
+              
         // If a command was executed, show typing status after command execution
         if (commandExecuted) {
             await showTypingAfterCommand(sock, chatId);
