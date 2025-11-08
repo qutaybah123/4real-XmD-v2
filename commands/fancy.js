@@ -1,4 +1,3 @@
-
 const axios = require("axios");
 const settings = require("../settings");
 async function fancyCommand(sock, chatId, message) {
