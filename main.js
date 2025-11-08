@@ -34,6 +34,8 @@ const topdfCommand = require('./commands/topdf');
 const tempnumCommand = require('./commands/tempnum');
 const templistCommand = require('./commands/templist');
 const otpboxCommand = require('./commands/otpbox');
+const pickuplineCommand = require('./commands/pickupline');
+const readmoreCommand = require('./commands/readmore');
 
 // Command imports
 const { 
@@ -710,7 +712,17 @@ case userMessage.startsWith('.tempnum'):
     await tempnumCommand(sock, chatId, message);
     commandExecuted = true;
     break;
+            
+case userMessage.startsWith('.pickupline') || userMessage.startsWith('.pickup'):
+    await pickuplineCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
 
+case userMessage.startsWith('.readmore') || userMessage.startsWith('.rm') || userMessage.startsWith('.rmore') || userMessage.startsWith('.readm'):
+    await readmoreCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+            
 case userMessage.startsWith('.templist'):
     await templistCommand(sock, chatId, message);
     commandExecuted = true;
