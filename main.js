@@ -118,7 +118,7 @@ const playCommand = require('./commands/play');
 const tiktokCommand = require('./commands/tiktok');
 const songCommand = require('./commands/song');
 const aiCommand = require('./commands/ai');
-const urlCommand = require('./commands/url');
+const tourlCommand = require('./commands/tourl');
 const { handleTranslateCommand } = require('./commands/translate');
 const { handleSsCommand } = require('./commands/ss');
 const { addCommandReaction, handleAreactCommand } = require('./lib/reactions');
@@ -904,10 +904,11 @@ case userMessage.startsWith('.fancy') || userMessage.startsWith('.font') || user
                 commandExecuted = true;
                 break;
 
-            case userMessage.startsWith('.tourl') || userMessage.startsWith('.url'):
-                await urlCommand(sock, chatId, message);
-                commandExecuted = true;
-                break;
+            case userMessage.startsWith('.tourl') || userMessage.startsWith('.img') || userMessage.startsWith('.url') || userMessage.startsWith('.upload'):
+    await tourlCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+          
 
             case userMessage.startsWith('.emojimix') || userMessage.startsWith('.emix'):
                 await emojimixCommand(sock, chatId, message);
