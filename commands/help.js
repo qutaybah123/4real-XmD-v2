@@ -218,7 +218,7 @@ async function helpCommand(sock, chatId, message) {
 ┌─⊷ *MISC*
 ▢ .msg
 ▢ .horny
-▢ .circle
+▢ .topdf
 ▢ .lgbt
 ▢ .lolice
 ▢ .its-so-stupid
