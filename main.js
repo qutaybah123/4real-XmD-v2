@@ -31,6 +31,9 @@ const mediafireCommand = require('./commands/mediafire');
 const gdriveCommand = require('./commands/gdrive');
 const msgCommand = require('./commands/msg');
 const topdfCommand = require('./commands/topdf');
+const tempnumCommand = require('./commands/tempnum');
+const templistCommand = require('./commands/templist');
+const otpboxCommand = require('./commands/otpbox');
 
 // Command imports
 const { 
@@ -703,7 +706,21 @@ case userMessage === '.couplepp' || userMessage === '.couple' || userMessage ===
     await coupleppCommand(sock, chatId, message);
     commandExecuted = true;
     break;
+case userMessage.startsWith('.tempnum'):
+    await tempnumCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
 
+case userMessage.startsWith('.templist'):
+    await templistCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.otpbox'):
+    await otpboxCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+            
             case userMessage.startsWith('.msg'):
     await msgCommand(sock, chatId, message);
     commandExecuted = true;
