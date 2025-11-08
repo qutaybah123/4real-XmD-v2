@@ -21,7 +21,7 @@ async function dareCommand(sock, chatId, message) {
                 throw new Error("Invalid API response: No 'result' field found.");
             }
 
-            const dareText = `🎯 *Dare Challenge:*\n\n${json.result}\n\n> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟɪɢᴀɴɢ ᴛᴇᴄʜs*`;
+            const dareText = `🎯 *Dare Challenge:*\n\n${json.result}`;
 
             await sock.sendMessage(chatId, {
                 text: dareText
