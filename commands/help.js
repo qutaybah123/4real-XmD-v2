@@ -227,6 +227,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .otpbox <number>
 ▢ .countryinfo
 ▢ .rw
+▢ .prayertime
 └───────────
 
 ┌─⊷ *ANIME*
