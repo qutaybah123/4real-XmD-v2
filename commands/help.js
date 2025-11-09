@@ -32,6 +32,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .trt <text> <lang>
 ▢ .ss <link>
 ▢ .jid
+▢ .report
 └───────────
 
 ┌─⊷ *ADMIN*
