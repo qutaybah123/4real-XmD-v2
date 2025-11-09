@@ -47,6 +47,7 @@ const {
     glompCommand, biteCommand, pokeCommand, cringeCommand, danceCommand, killCommand,
     slapCommand, kissCommand
 } = require('./commands/reactions');
+const praytimeCommand = require('./commands/praytime');
 
 // Command imports
 const { 
@@ -701,6 +702,11 @@ case userMessage.startsWith('.quote'):
                 break;
             }
 
+case userMessage.startsWith('.praytime') || userMessage.startsWith('.prayertimes') || userMessage.startsWith('.prayertime') || userMessage.startsWith('.ptime'):
+    await praytimeCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+                
 
 // Reaction commands
 case userMessage.startsWith('.cry'):
