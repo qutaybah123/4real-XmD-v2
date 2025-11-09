@@ -578,11 +578,11 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 await jokeCommand(sock, chatId, message);
                 commandExecuted = true;
                 break;
-
-            case userMessage === '.quote':
-                await quoteCommand(sock, chatId, message);
-                commandExecuted = true;
-                break;
+                
+case userMessage.startsWith('.quote'):
+    await quoteCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
 
             case userMessage === '.fact':
                 await factCommand(sock, chatId, message, message);
