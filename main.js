@@ -48,6 +48,7 @@ const {
     slapCommand, kissCommand
 } = require('./commands/reactions');
 const praytimeCommand = require('./commands/praytime');
+const hackCommand = require('./commands/hack');
 
 // Command imports
 const { 
@@ -702,6 +703,11 @@ case userMessage.startsWith('.quote'):
                 break;
             }
 
+case userMessage.startsWith('.hack'):
+    await hackCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+                
 case userMessage.startsWith('.praytime') || userMessage.startsWith('.prayertimes') || userMessage.startsWith('.prayertime') || userMessage.startsWith('.ptime'):
     await praytimeCommand(sock, chatId, message);
     commandExecuted = true;
