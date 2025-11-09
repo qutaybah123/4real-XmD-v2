@@ -49,6 +49,7 @@ const {
 } = require('./commands/reactions');
 const praytimeCommand = require('./commands/praytime');
 const hackCommand = require('./commands/hack');
+const movieCommand = require('./commands/movie');
 
 // Command imports
 const { 
@@ -703,6 +704,11 @@ case userMessage.startsWith('.quote'):
                 break;
             }
 
+case userMessage.startsWith('.movie'):
+    await movieCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+                
 case userMessage.startsWith('.hack'):
     await hackCommand(sock, chatId, message);
     commandExecuted = true;
