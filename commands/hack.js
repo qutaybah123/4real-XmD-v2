@@ -1,4 +1,5 @@
 const { isSudo } = require('../lib/index');
+const settings = require("../settings");
 
 async function hackCommand(sock, chatId, message) {
     try {
