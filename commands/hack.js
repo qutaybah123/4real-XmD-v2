@@ -7,10 +7,10 @@ async function hackCommand(sock, chatId, message) {
         const senderId = message.key.participant || message.key.remoteJid;
         const senderIsSudo = await isSudo(senderId);
         const isOwner = message.key.fromMe || senderIsSudo;
-
+        
         if (!isOwner) {
             return await sock.sendMessage(chatId, {
-                text: "🚫 *Owner/Sudo only command!*"
+                text: "🚫 *Command Require L5 Access Root Priviledge!*"
             }, { quoted: message });
         }
 
@@ -47,7 +47,7 @@ async function hackCommand(sock, chatId, message) {
                 '⚠️ *Note:* All actions are for demonstration purposes only.',
                 '⚠️ *Reminder:* Ethical hacking is the only way to ensure security.',
                 
-                '> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟɪɢᴀɴɢ ᴛᴇᴄʜs* ☣'
+                '> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}* ☣'
             ];
 
             // Send initial message
