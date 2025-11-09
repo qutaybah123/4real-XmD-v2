@@ -38,6 +38,7 @@ const pickuplineCommand = require('./commands/pickupline');
 const readmoreCommand = require('./commands/readmore');
 const reportCommand = require('./commands/report');
 const countryinfoCommand = require('./commands/countryinfo');
+const rwCommand = require('./commands/rw');
 
 // Command imports
 const { 
@@ -737,6 +738,10 @@ case userMessage.startsWith('.templist'):
 
 case userMessage.startsWith('.otpbox'):
     await otpboxCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+case userMessage.startsWith('.rw') || userMessage.startsWith('.randomwall') || userMessage.startsWith('.wallpaper'):
+    await rwCommand(sock, chatId, message);
     commandExecuted = true;
     break;
             
