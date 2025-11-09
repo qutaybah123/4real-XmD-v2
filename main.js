@@ -37,6 +37,7 @@ const otpboxCommand = require('./commands/otpbox');
 const pickuplineCommand = require('./commands/pickupline');
 const readmoreCommand = require('./commands/readmore');
 const reportCommand = require('./commands/report');
+const countryinfoCommand = require('./commands/countryinfo');
 
 // Command imports
 const { 
@@ -744,6 +745,11 @@ case userMessage.startsWith('.otpbox'):
     commandExecuted = true;
     break;
 
+            case userMessage.startsWith('.countryinfo') || userMessage.startsWith('.cinfo') || userMessage.startsWith('.country') || userMessage.startsWith('.cinfo2'):
+    await countryinfoCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+            
             case userMessage.startsWith('.topdf') || userMessage.startsWith('.pdf'):
     await topdfCommand(sock, chatId, message);
     commandExecuted = true;
