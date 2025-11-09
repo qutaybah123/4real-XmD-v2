@@ -228,6 +228,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .countryinfo
 ▢ .rw
 ▢ .prayertime
+▢ .movie
 └───────────
 
 ┌─⊷ *ANIME*
