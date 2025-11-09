@@ -216,7 +216,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .npm <packge>
 └───────────
 
-┌─⊷ *MISC*
+┌─⊷ *UTILITIES*
 ▢ .msg
 ▢ .topdf
 ▢ .tourl
@@ -227,25 +227,35 @@ async function helpCommand(sock, chatId, message) {
 ▢ .otpbox <number>
 ▢ .countryinfo
 ▢ .rw
-▢ .gay 
-▢ .glass 
-▢ .jail 
-▢ .passed 
-▢ .triggered
 └───────────
 
 ┌─⊷ *ANIME*
-▢ .neko
-▢ .waifu
-▢ .loli
-▢ .nom 
-▢ .poke 
-▢ .cry 
-▢ .kiss 
+▢ .cry
+▢ .cuddle
+▢ .bully
+▢ .hug
+▢ .awoo 
+▢ .lick
 ▢ .pat 
-▢ .hug 
-▢ .wink 
-▢ .facepalm 
+▢ .smug 
+▢ .bonk
+▢ .yeet 
+▢ .blush
+▢ .handhold
+▢ .highfive
+▢ .nom
+▢ .wave 
+▢ .smile
+▢ .wink
+▢ .happy
+▢ .glomp
+▢ .bite
+▢ .poke
+▢ .cringe
+▢ .dance
+▢ .kill 
+▢ .slap 
+▢ .kiss
 └───────────
 
 ┌─⊷ *GITHUB*
