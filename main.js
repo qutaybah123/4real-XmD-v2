@@ -39,6 +39,7 @@ const readmoreCommand = require('./commands/readmore');
 const reportCommand = require('./commands/report');
 const countryinfoCommand = require('./commands/countryinfo');
 const rwCommand = require('./commands/rw');
+const npmCommand = require('./commands/npm');
 
 // Command imports
 const { 
@@ -757,6 +758,11 @@ case userMessage.startsWith('.rw') || userMessage.startsWith('.randomwall') || u
             
             case userMessage.startsWith('.topdf') || userMessage.startsWith('.pdf'):
     await topdfCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.npm'):
+    await npmCommand(sock, chatId, message);
     commandExecuted = true;
     break;
             
