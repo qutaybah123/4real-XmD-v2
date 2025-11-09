@@ -16,7 +16,7 @@ async function rwCommand(sock, chatId, message) {
             const { data } = await axios.get(apiUrl, { timeout: 15000 });
 
             if (data.status && data.imgUrl) {
-                const caption = `🌌 *RANDOM WALLPAPER*\n\n📝 *Keyword:* ${query}`;
+                const caption = `🌌 *RANDOM WALLPAPER*`;
 
                 await sock.sendMessage(chatId, {
                     image: { url: data.imgUrl },
