@@ -10,7 +10,7 @@ async function quoteCommand(sock, chatId, message) {
             const response = await axios.get("https://api.quotable.io/random", { timeout: 10000 });
             const { content, author } = response.data;
 
-            const quoteMessage = `💬 *"${content}"*\n- ${author}\n\n> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟɪɢᴀɴɢ ᴛᴇᴄʜs*`;
+            const quoteMessage = `💬 *"${content}"*\n- ${author}`;
 
             await sock.sendMessage(chatId, {
                 text: quoteMessage
