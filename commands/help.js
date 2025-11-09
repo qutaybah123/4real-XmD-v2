@@ -224,7 +224,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .templist
 ▢ .tempnum
 ▢ .otpbox <number>
-▢ .ytcomment 
+▢ .countryinfo
 ▢ .comrade 
 ▢ .gay 
 ▢ .glass 
