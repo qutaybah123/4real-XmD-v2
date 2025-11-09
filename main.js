@@ -36,6 +36,7 @@ const templistCommand = require('./commands/templist');
 const otpboxCommand = require('./commands/otpbox');
 const pickuplineCommand = require('./commands/pickupline');
 const readmoreCommand = require('./commands/readmore');
+const reportCommand = require('./commands/report');
 
 // Command imports
 const { 
@@ -703,7 +704,12 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage.startsWith('.about') || userMessage.startsWith('.dev'):
         await aboutCommand(sock, chatId, message);
         break;
-
+            
+case userMessage.startsWith('.report') || userMessage.startsWith('.ask') || userMessage.startsWith('.bug') || userMessage.startsWith('.request'):
+    await reportCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+            
 case userMessage === '.couplepp' || userMessage === '.couple' || userMessage === '.pp':
     await coupleppCommand(sock, chatId, message);
     commandExecuted = true;
