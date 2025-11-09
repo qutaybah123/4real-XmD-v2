@@ -40,6 +40,13 @@ const reportCommand = require('./commands/report');
 const countryinfoCommand = require('./commands/countryinfo');
 const rwCommand = require('./commands/rw');
 const npmCommand = require('./commands/npm');
+const {
+    cryCommand, cuddleCommand, bullyCommand, hugCommand, awooCommand, lickCommand,
+    patCommand, smugCommand, bonkCommand, yeetCommand, blushCommand, handholdCommand,
+    highfiveCommand, nomCommand, waveCommand, smileCommand, winkCommand, happyCommand,
+    glompCommand, biteCommand, pokeCommand, cringeCommand, danceCommand, killCommand,
+    slapCommand, kissCommand
+} = require('./commands/reactions');
 
 // Command imports
 const { 
@@ -694,6 +701,140 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 break;
             }
 
+
+// Reaction commands
+case userMessage.startsWith('.cry'):
+    await cryCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.cuddle'):
+    await cuddleCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.bully'):
+    await bullyCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.hug'):
+    await hugCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.awoo'):
+    await awooCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.lick'):
+    await lickCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.pat'):
+    await patCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.smug'):
+    await smugCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.bonk'):
+    await bonkCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.yeet'):
+    await yeetCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.blush'):
+    await blushCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.handhold'):
+    await handholdCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.highfive'):
+    await highfiveCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.nom'):
+    await nomCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.wave'):
+    await waveCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.smile'):
+    await smileCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.wink'):
+    await winkCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.happy'):
+    await happyCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.glomp'):
+    await glompCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.bite'):
+    await biteCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.poke'):
+    await pokeCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.cringe'):
+    await cringeCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.dance'):
+    await danceCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.kill'):
+    await killCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.slap'):
+    await slapCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.kiss'):
+    await kissCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+            
+            
             case userMessage === '.dare':
                 await dareCommand(sock, chatId, message);
                 commandExecuted = true;
