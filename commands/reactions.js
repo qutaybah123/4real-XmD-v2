@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { fetchGif, gifToVideo } = require("../lib/fetchGif");
+const settings = require('../settings');
 
 // Map of all reaction commands and their API endpoints
 const reactionCommands = {
