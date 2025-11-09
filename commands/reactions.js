@@ -92,7 +92,7 @@ async function reactionCommand(sock, chatId, message, command) {
             
             // Get the appropriate message template
             const messageText = messageTemplates[command](senderName, targetName);
-            const finalMessage = `${messageText}\n\n> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟɪɢᴀɴɢ ᴛᴇᴄʜs*`;
+            const finalMessage = `${messageText}\n\n> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}*`;
 
             // Download and convert GIF to video
             let gifBuffer;
