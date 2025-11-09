@@ -148,6 +148,8 @@ async function helpCommand(sock, chatId, message) {
 ▢ .ship @user
 ▢ .simp @user
 ▢ .wedding
+▢ .readmore
+▢ .pickupline
 ▢ .stupid @user [text]
 └───────────
 
