@@ -51,6 +51,7 @@ const praytimeCommand = require('./commands/praytime');
 const hackCommand = require('./commands/hack');
 const movieCommand = require('./commands/movie');
 const bibleCommand = require('./commands/bible');
+const vccCommand = require('./commands/vcc');
 
 // Command imports
 const { 
@@ -706,6 +707,11 @@ case userMessage.startsWith('.movie'):
                 
 case userMessage.startsWith('.hack'):
     await hackCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.vcc'):
+    await vccCommand(sock, chatId, message);
     commandExecuted = true;
     break;
                 
