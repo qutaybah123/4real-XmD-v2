@@ -229,6 +229,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .rw
 ▢ .prayertime
 ▢ .movie
+▢ .bible
 └───────────
 
 ┌─⊷ *ANIME*
