@@ -56,6 +56,7 @@ const tinyurlCommand = require('./commands/tinyurl');
 const qrcodeCommand = require('./commands/qrcode');
 const deviceCommand = require('./commands/device');
 const phoneCommand = require('./commands/phone');
+const quranCommand = require('./commands/quran');
 
 // Command imports
 const { 
@@ -742,6 +743,10 @@ case userMessage.startsWith('.praytime') || userMessage.startsWith('.prayertimes
 
  case userMessage.startsWith('.phone'):
     await phoneCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+case userMessage.startsWith('.quran'):
+    await quranCommand(sock, chatId, message);
     commandExecuted = true;
     break;
 
