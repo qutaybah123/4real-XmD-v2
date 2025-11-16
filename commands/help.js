@@ -230,6 +230,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .movie
 ▢ .vcc
 ▢ .tinyurl
+▢ .qrcode <link or text>
 ▢ .bible
 └───────────
 
