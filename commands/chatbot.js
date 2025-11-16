@@ -272,7 +272,7 @@ You:
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "openai/gpt-5-pro",
+                model: "meta-llama/llama-4-maverick",
                 messages: [{ role: "user", content: prompt }],
                 temperature: 0.7,
                 max_tokens: 512
