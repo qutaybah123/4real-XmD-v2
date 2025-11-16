@@ -307,7 +307,7 @@ async function aiCommand(sock, chatId, message) {
                         "User-Agent": "WhatsApp-Bot/1.0"
                     },
                     body: JSON.stringify({
-                        "model": "meta-llama/llama-4-maverick:free",
+                        "model": "meta-llama/llama-4-maverick",
                         "messages": [{"role": "user", "content": query}],
                         "temperature": 0.7,
                         "max_tokens": 2048
