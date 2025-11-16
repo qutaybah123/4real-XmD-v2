@@ -1,4 +1,5 @@
 const { isSudo } = require('../lib/index');
+const settings = require('../settings'); // Add this import
 
 async function msgCommand(sock, chatId, message) {
     try {
@@ -8,7 +9,11 @@ async function msgCommand(sock, chatId, message) {
 
         // Check if user is owner/sudo
         const senderId = message.key.participant || message.key.remoteJid;
-        const isOwner = message.key.fromMe || await isSudo(senderId);
+        const senderIsSudo = await isSudo(senderId);
+        
+        // Proper owner check - compare with owner number from settings
+        const ownerJid = settings.ownerNumber + '@s.whatsapp.net';
+        const isOwner = message.key.fromMe || senderId === ownerJid || senderIsSudo;
 
         if (!isOwner) {
             return await sock.sendMessage(chatId, {
