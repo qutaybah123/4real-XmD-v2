@@ -238,12 +238,15 @@ async function handleMessages(sock, messageUpdate, printLog) {
             return;
         }
 
-        const chatId = message.key.remoteJid;
-        const senderId = message.key.participant || message.key.remoteJid;
-        const isGroup = chatId.endsWith('@g.us');
-        const isFromMe = message.key.fromMe;
-        const senderIsSudo = await isSudo(senderId);
-        const isOwner = isFromMe || senderIsSudo;
+const chatId = message.key.remoteJid;
+const senderId = message.key.participant || message.key.remoteJid;
+const isGroup = chatId.endsWith('@g.us');
+const isFromMe = message.key.fromMe;
+const senderIsSudo = await isSudo(senderId);
+
+// ✅ FIXED: Proper owner check
+const ownerJid = settings.ownerNumber + '@s.whatsapp.net';
+const isOwner = isFromMe || senderId === ownerJid || senderIsSudo;
 
         const userMessage = (
             message.message?.conversation?.trim() ||
