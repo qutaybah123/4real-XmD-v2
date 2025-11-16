@@ -12,7 +12,7 @@ async function helpCommand(sock, chatId, message) {
 └───────────
 
 ┌─⊷ *GENERAL*
-▢ .help or .menu
+▢ .help 
 ▢ .ping
 ▢ .about
 ▢ .alive
@@ -228,6 +228,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .rw
 ▢ .prayertime
 ▢ .movie
+▢ .vcc
 ▢ .bible
 └───────────
 
