@@ -1,12 +1,16 @@
 const axios = require("axios");
 const { isSudo } = require('../lib/index');
+const settings = require('../settings'); // Add this import
 
 async function templistCommand(sock, chatId, message) {
     try {
         // Check if user is owner/sudo
         const senderId = message.key.participant || message.key.remoteJid;
         const senderIsSudo = await isSudo(senderId);
-        const isOwner = message.key.fromMe || senderIsSudo;
+        
+        // Proper owner check - compare with owner number from settings
+        const ownerJid = settings.ownerNumber + '@s.whatsapp.net';
+        const isOwner = message.key.fromMe || senderId === ownerJid || senderIsSudo;
 
         if (!isOwner) {
             return await sock.sendMessage(chatId, {
