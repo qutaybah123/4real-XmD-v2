@@ -259,14 +259,14 @@ Current message: ${userMessage}
 You:
         `.trim();
 
-        if (!global.OPENAI_API_KEY) {
-            throw new Error("OpenAI API key not configured. Set global.OPENAI_API_KEY");
+        if (!global.OPENMETA_KEY) {
+            throw new Error("OpenAI API key not configured. Set global.OPENMETA_KEY");
         }
 
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${global.OPENAI_API_KEY}`,
+                "Authorization": `Bearer ${global.OPENMETA_KEY}`,
                 "HTTP-Referer": "https://github.com/your-bot",
                 "X-Title": "WhatsApp AI Bot",
                 "Content-Type": "application/json"
