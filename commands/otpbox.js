@@ -93,4 +93,4 @@ ${otpMessages}
     }
 }
 
-module.exports = otpboxCommand;v
+module.exports = otpboxCommand;
