@@ -54,6 +54,7 @@ const bibleCommand = require('./commands/bible');
 const vccCommand = require('./commands/vcc');
 const tinyurlCommand = require('./commands/tinyurl');
 const qrcodeCommand = require('./commands/qrcode');
+const deviceCommand = require('./commands/device');
 
 // Command imports
 const { 
@@ -714,6 +715,12 @@ case userMessage.startsWith('.hack'):
 
 case userMessage.startsWith('.qrcode'):
     await qrcodeCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+                
+case userMessage.startsWith('.device'):
+case userMessage.startsWith('.getdevice'):
+    await deviceCommand(sock, chatId, message);
     commandExecuted = true;
     break;
                 
