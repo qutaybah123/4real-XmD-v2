@@ -232,6 +232,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .tinyurl
 ▢ .qrcode <link or text>
 ▢ .getdevice
+▢ .phone
 ▢ .bible
 └───────────
 
