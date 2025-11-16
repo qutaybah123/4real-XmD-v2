@@ -272,7 +272,7 @@ You:
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "meta-llama/llama-4-maverick",
+                model: "meta-llama/llama-3.3-70b-instruct:free",
                 messages: [{ role: "user", content: prompt }],
                 temperature: 0.7,
                 max_tokens: 512
