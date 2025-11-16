@@ -50,6 +50,7 @@ const {
 const praytimeCommand = require('./commands/praytime');
 const hackCommand = require('./commands/hack');
 const movieCommand = require('./commands/movie');
+const bibleCommand = require('./commands/bible');
 
 // Command imports
 const { 
@@ -899,6 +900,11 @@ case userMessage.startsWith('.templist'):
     commandExecuted = true;
     break;
 
+case userMessage.startsWith('.bible'):
+    await bibleCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+                
 case userMessage.startsWith('.otpbox'):
     await otpboxCommand(sock, chatId, message);
     commandExecuted = true;
