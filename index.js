@@ -46,7 +46,13 @@ const { rmSync, existsSync } = require('fs')
 const { join } = require('path')
 
 const { storeMessage, handleMessageRevocation } = require('./commands/antidelete');
-
+global.OPENGEMINI2_0FLASH_KEY = "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";
+global.OPENGEMINI1_5FLASH_KEY = "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";  
+global.OPENDEEPSEEKR1_KEY = "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";
+global.OPENMISTRAL_KEY = "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";
+global.OPENMETA_KEY = "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";
+global.OPENANTHROPIC_KEY = "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";
+global.OPENNVIDIA_KEY = "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";
 
 // Import lightweight store
 const store = require('./lib/lightweight_store')
