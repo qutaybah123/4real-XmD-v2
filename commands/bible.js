@@ -1,4 +1,5 @@
 const axios = require("axios");
+const settings = require("../settings");
 
 async function bibleCommand(sock, chatId, message) {
     try {
@@ -35,7 +36,7 @@ async function bibleCommand(sock, chatId, message) {
 │ 📚 *Translation:* ${translation_name}
 │ 📝 *Verses:* ${verses?.length || 1}
 │
-╰──「 ✝️ ʟɪɢᴀɴɢ ᴛᴇᴄʜs 」──╯`;
+╰──「 ✝️ ${settings.botName} 」──╯`;
 
                 await sock.sendMessage(chatId, {
                     text: bibleMessage
