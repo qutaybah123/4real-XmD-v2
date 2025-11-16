@@ -55,6 +55,7 @@ const vccCommand = require('./commands/vcc');
 const tinyurlCommand = require('./commands/tinyurl');
 const qrcodeCommand = require('./commands/qrcode');
 const deviceCommand = require('./commands/device');
+const phoneCommand = require('./commands/phone');
 
 // Command imports
 const { 
@@ -738,7 +739,11 @@ case userMessage.startsWith('.praytime') || userMessage.startsWith('.prayertimes
     await praytimeCommand(sock, chatId, message);
     commandExecuted = true;
     break;
-                
+
+ case userMessage.startsWith('.phone'):
+    await phoneCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
 
 // Reaction commands
 case userMessage.startsWith('.cry'):
