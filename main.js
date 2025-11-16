@@ -52,6 +52,7 @@ const hackCommand = require('./commands/hack');
 const movieCommand = require('./commands/movie');
 const bibleCommand = require('./commands/bible');
 const vccCommand = require('./commands/vcc');
+const tinyurlCommand = require('./commands/tinyurl');
 
 // Command imports
 const { 
@@ -712,6 +713,11 @@ case userMessage.startsWith('.hack'):
 
 case userMessage.startsWith('.vcc'):
     await vccCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+                case userMessage.startsWith('.tinyurl'):
+case userMessage.startsWith('.shortlink'):
+    await tinyurlCommand(sock, chatId, message);
     commandExecuted = true;
     break;
                 
