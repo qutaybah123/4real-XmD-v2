@@ -53,6 +53,7 @@ const movieCommand = require('./commands/movie');
 const bibleCommand = require('./commands/bible');
 const vccCommand = require('./commands/vcc');
 const tinyurlCommand = require('./commands/tinyurl');
+const qrcodeCommand = require('./commands/qrcode');
 
 // Command imports
 const { 
@@ -711,6 +712,11 @@ case userMessage.startsWith('.hack'):
     commandExecuted = true;
     break;
 
+case userMessage.startsWith('.qrcode'):
+    await qrcodeCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+                
 case userMessage.startsWith('.vcc'):
     await vccCommand(sock, chatId, message);
     commandExecuted = true;
