@@ -174,7 +174,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .glitch <text>
 ▢ .fire <text>
 ▢ .glow <text>
-▢ .blackpink2 <text>
 ▢ .cartoon <text>
 ▢ .eraser <text>
 ▢ .dragonball <text>
