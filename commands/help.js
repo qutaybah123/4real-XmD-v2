@@ -265,7 +265,7 @@ async function helpCommand(sock, chatId, message) {
 ▢ .gitclone <github-url>
 └───────────
 
-Join our channel for updates:`;
+> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}*`;
 
     try {
         // Use global image URL variable (fallback to local image if not set)
