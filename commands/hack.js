@@ -6,7 +6,10 @@ async function hackCommand(sock, chatId, message) {
         // Check if user is owner/sudo
         const senderId = message.key.participant || message.key.remoteJid;
         const senderIsSudo = await isSudo(senderId);
-        const isOwner = message.key.fromMe || senderIsSudo;
+        
+        // Proper owner check - compare with owner number from settings
+        const ownerJid = settings.ownerNumber + '@s.whatsapp.net';
+        const isOwner = message.key.fromMe || senderId === ownerJid || senderIsSudo;
         
         if (!isOwner) {
             return await sock.sendMessage(chatId, {
@@ -47,7 +50,7 @@ async function hackCommand(sock, chatId, message) {
                 '⚠️ *Note:* All actions are for demonstration purposes only.',
                 '⚠️ *Reminder:* Ethical hacking is the only way to ensure security.',
                 
-                '> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}* ☣'
+                `> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}* ☣`
             ];
 
             // Send initial message
