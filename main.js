@@ -890,11 +890,11 @@ case userMessage.startsWith('.pickupline') || userMessage.startsWith('.pickup'):
     commandExecuted = true;
     break;
 
-case userMessage.startsWith('.readmore') || userMessage.startsWith('.rm') || userMessage.startsWith('.rmore') || userMessage.startsWith('.readm'):
+/*case userMessage.startsWith('.readmore') || userMessage.startsWith('.rm') || userMessage.startsWith('.rmore') || userMessage.startsWith('.readm'):
     await readmoreCommand(sock, chatId, message);
     commandExecuted = true;
     break;
-            
+  */          
 case userMessage.startsWith('.templist'):
     await templistCommand(sock, chatId, message);
     commandExecuted = true;
