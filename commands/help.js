@@ -96,6 +96,11 @@ async function helpCommand(sock, chatId, message) {
 ▢ .igsc <insta link>
 └───────────
 
+┌─⊷ *RELIGION*
+▢ .quran
+▢ .bible
+└───────────
+
 ┌─⊷ *WRESTLING*
 ▢ .wevents
 ▢ .wwenews 
@@ -233,7 +238,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .qrcode <link or text>
 ▢ .getdevice
 ▢ .phone
-▢ .bible
 └───────────
 
 ┌─⊷ *ANIME*
