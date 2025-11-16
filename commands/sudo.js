@@ -1,5 +1,5 @@
 const settings = require('../settings');
-const { addSudo, removeSudo, getSudoList } = require('../lib/index');
+const { addSudo, removeSudo, getSudoList, isSudo } = require('../lib/index'); // ✅ Added isSudo import
 
 function extractMentionedJid(message) {
     const mentioned = message.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
@@ -12,9 +12,11 @@ function extractMentionedJid(message) {
 
 async function sudoCommand(sock, chatId, message) {
     const senderId = message.key.participant || message.key.remoteJid;
-   const senderIsSudo = await isSudo(senderId);
+    const senderIsSudo = await isSudo(senderId);
     
-    const isOwner = message.key.fromMe || senderIsSudo;
+    // ✅ FIXED: Proper owner check
+    const ownerJid = settings.ownerNumber + '@s.whatsapp.net';
+    const isOwner = message.key.fromMe || senderId === ownerJid || senderIsSudo;
 
     const rawText = message.message?.conversation || message.message?.extendedTextMessage?.text || '';
     const args = rawText.trim().split(' ').slice(1);
@@ -37,7 +39,7 @@ async function sudoCommand(sock, chatId, message) {
     }
 
     if (!isOwner) {
-        await sock.sendMessage(chatId, { text: 'ðŸš« Only owner can add/remove sudo users. Use .sudo list to view.' },{quoted :message});
+        await sock.sendMessage(chatId, { text: '🚫 Only owner can add/remove sudo users. Use .sudo list to view.' },{quoted :message});
         return;
     }
 
@@ -49,7 +51,7 @@ async function sudoCommand(sock, chatId, message) {
 
     if (sub === 'add') {
         const ok = await addSudo(targetJid);
-        await sock.sendMessage(chatId, { text: ok ? `âœ… Added sudo: ${targetJid}` : 'âŒ Failed to add sudo' },{quoted :message});
+        await sock.sendMessage(chatId, { text: ok ? `✅ Added sudo: ${targetJid}` : '❌ Failed to add sudo' },{quoted :message});
         return;
     }
 
@@ -60,10 +62,9 @@ async function sudoCommand(sock, chatId, message) {
             return;
         }
         const ok = await removeSudo(targetJid);
-        await sock.sendMessage(chatId, { text: ok ? `âœ… Removed sudo: ${targetJid}` : 'âŒ Failed to remove sudo' },{quoted :message});
+        await sock.sendMessage(chatId, { text: ok ? `✅ Removed sudo: ${targetJid}` : '❌ Failed to remove sudo' },{quoted :message});
         return;
     }
 }
 
 module.exports = sudoCommand;
-
