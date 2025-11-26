@@ -47,9 +47,6 @@ async function hackCommand(sock, chatId, message) {
                 '_🕵️‍♂️ Ensuring stealth..._ 🤫',
                 '*🔧 Finalizing operations...* 🏁',
                 
-                '⚠️ *Note:* All actions are for demonstration purposes only.',
-                '⚠️ *Reminder:* Ethical hacking is the only way to ensure security.',
-                
                 `> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ${settings.botName}* ☣`
             ];
 
