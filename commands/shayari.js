@@ -51,7 +51,7 @@ Your ONLY task is to output one complete romantic shayari in ${language}.
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "meta-llama/llama-4-maverick:free",
+                model: "meta-llama/llama-3.3-70b-instruct:free",
                 messages: [
                     { role: "system", content: systemPrompt },
                     { role: "user", content: "Give me a romantic shayari." }
