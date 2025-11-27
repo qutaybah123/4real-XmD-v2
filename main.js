@@ -57,6 +57,7 @@ const qrcodeCommand = require('./commands/qrcode');
 const deviceCommand = require('./commands/device');
 const phoneCommand = require('./commands/phone');
 const quranCommand = require('./commands/quran');
+const { setbotimageurlCommand, getCurrentBotImageUrl } = require('./commands/setbotimageurl');
 
 // Command imports
 const { 
@@ -750,6 +751,11 @@ case userMessage.startsWith('.quran'):
     commandExecuted = true;
     break;
 
+case userMessage.startsWith('.setimageurl') || userMessage.startsWith('.setbotimage') || userMessage.startsWith('.setbotimg'):
+    await setbotimageurlCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+                
 // Reaction commands
 case userMessage.startsWith('.cry'):
     await cryCommand(sock, chatId, message);
