@@ -226,10 +226,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .tourl
 ▢ .tempmail
 ▢ .checkmail <session_id>
-▢ .templist
-▢ .tempnum
-▢ .otpbox <number>
-▢ .countryinfo
 ▢ .rw
 ▢ .prayertime
 ▢ .movie
