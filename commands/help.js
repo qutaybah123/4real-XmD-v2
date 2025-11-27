@@ -65,6 +65,7 @@ async function helpCommand(sock, chatId, message) {
 ┌─⊷ *OWNER*
 ▢ .mode <public/private>
 ▢ .clearsession
+▢ .setbotimage <url>
 ▢ .antidelete
 ▢ .cleartmp
 ▢ .update
