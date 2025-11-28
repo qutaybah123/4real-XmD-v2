@@ -1430,10 +1430,27 @@ case userMessage.startsWith('.watercolor'):
                 await tiktokCommand(sock, chatId, message);
                 commandExecuted = true;
                 break;
-            case userMessage.startsWith('.gpt')  || userMessage.startsWith('.grok')  || userMessage.startsWith('.grokfollow')  || userMessage.startsWith('.claude') || userMessage.startsWith('.deepseek') || userMessage.startsWith('.mistral') || userMessage.startsWith('.metaai') || userMessage.startsWith('.nemotron') || userMessage.startsWith('.nvidia'):
-                await aiCommand(sock, chatId, message);
-                commandExecuted = true;
-                break;
+           case userMessage.startsWith('.grok') || 
+     userMessage.startsWith('.grokfollow') ||
+     userMessage.startsWith('.mistral') || 
+     userMessage.startsWith('.metaai') || 
+     userMessage.startsWith('.nemotron') || 
+     userMessage.startsWith('.nvidia') || 
+     userMessage.startsWith('.katcoder') || 
+     userMessage.startsWith('.kat') || 
+     userMessage.startsWith('.longcat') || 
+     userMessage.startsWith('.long') || 
+     userMessage.startsWith('.glm') || 
+     userMessage.startsWith('.glm45') || 
+     userMessage.startsWith('.qwen') || 
+     userMessage.startsWith('.qwencoder') || 
+     userMessage.startsWith('.kimi') || 
+     userMessage.startsWith('.kimi2') || 
+     userMessage.startsWith('.hermes') || 
+     userMessage.startsWith('.hermes405'):
+    await aiCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
 
             case userMessage.startsWith('.translate') || userMessage.startsWith('.trt'): {
                 const commandLength = userMessage.startsWith('.translate') ? 10 : 4;
