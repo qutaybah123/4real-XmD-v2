@@ -206,7 +206,7 @@ async function aiCommand(sock, chatId, message) {
                                 "User-Agent": "WhatsApp-Bot/1.0"
                             },
                             body: JSON.stringify({
-                                "model": "openai/gpt-5-pro",
+                                "model": "openai/gpt-5.1-codex",
                                 "messages": [{"role": "user", "content": query}],
                                 "temperature": 0.7,
                                 "max_tokens": 2048
