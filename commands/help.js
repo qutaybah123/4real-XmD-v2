@@ -35,6 +35,26 @@ async function helpCommand(sock, chatId, message) {
 ▢ .report
 └───────────
 
+┌─⊷ *AI*
+▢ .mistral <question>
+▢ .metaai <question>
+▢ .nemotron <question>
+▢ .nvidia <question>
+▢ .gpt <question>
+▢ .grok <question>
+▢ .grokfollow <question>
+▢ .katcoder <question>
+▢ .longcat <question>
+▢ .long <question>
+▢ .glm45 <question>
+▢ .qwencoder <question>
+▢ .kimi <question>
+▢ .hermes <question>
+▢ .imagine <question>
+▢ .flux <prompt>
+▢ .sora <prompt>
+└───────────
+
 ┌─⊷ *ADMIN*
 ▢ .ban @user
 ▢ .promote @user
@@ -125,20 +145,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .answer <answer>
 ▢ .truth
 ▢ .dare
-└───────────
-
-┌─⊷ *AI*
-▢ .mistral <question>
-▢ .metaai <question>
-▢ .nemotron <question>
-▢ .nvidia <question>
-▢ .claude <question>
-▢ .gpt <question>
-▢ .grok <question>
-▢ .grokfollow <question>
-▢ .imagine <question>
-▢ .flux <prompt>
-▢ .sora <prompt>
 └───────────
 
 ┌─⊷ *FUN*
