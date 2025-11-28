@@ -55,6 +55,17 @@ const {
     generateWalletCommand, 
     cryptoCalculatorCommand 
 } = require('./commands/crypto');
+const {
+    ipInfoCommand,
+    dnsLookupCommand,
+    whoisCommand,
+    subdomainFinderCommand,
+    portScanCommand,
+    headersCommand,
+    hashIdCommand,
+    encodeCommand,
+    decodeCommand
+} = require('./commands/osint');
 const praytimeCommand = require('./commands/praytime');
 const hackCommand = require('./commands/hack');
 const movieCommand = require('./commands/movie');
@@ -895,6 +906,61 @@ case userMessage.startsWith('.kiss'):
     commandExecuted = true;
     break;
 
+// OSINT/Cyber Security Commands - OWNER ONLY
+case userMessage.startsWith('.ipinfo'):
+    const ip = userMessage.split(' ')[1];
+    await ipInfoCommand(sock, chatId, message, ip, senderId);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.dns'):
+    const domain = userMessage.split(' ')[1];
+    await dnsLookupCommand(sock, chatId, message, domain, senderId);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.whois'):
+    const whoisDomain = userMessage.split(' ')[1];
+    await whoisCommand(sock, chatId, message, whoisDomain, senderId);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.subfinder'):
+    const subDomain = userMessage.split(' ')[1];
+    await subdomainFinderCommand(sock, chatId, message, subDomain, senderId);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.portscan'):
+    const host = userMessage.split(' ')[1];
+    await portScanCommand(sock, chatId, message, host, senderId);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.headers'):
+    const url = userMessage.split(' ')[1];
+    await headersCommand(sock, chatId, message, url, senderId);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.hashid'):
+    const hash = userMessage.split(' ')[1];
+    await hashIdCommand(sock, chatId, message, hash, senderId);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.encode'):
+    const encodeText = userMessage.split(' ').slice(1).join(' ');
+    await encodeCommand(sock, chatId, message, encodeText, senderId);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.decode'):
+    const decodeText = userMessage.split(' ').slice(1).join(' ');
+    await decodeCommand(sock, chatId, message, decodeText, senderId);
+    commandExecuted = true;
+    break;
+                
             // Add these cases in your switch statement:
 
 case userMessage.startsWith('.crypto'):
