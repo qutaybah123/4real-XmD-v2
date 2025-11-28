@@ -373,7 +373,8 @@ const isOwner = isFromMe || senderId === ownerJid || senderIsSudo;
 
         // Define command categories
         const adminCommands = ['.mute', '.unmute', '.ban', '.unban', '.promote', '.demote', '.kick', '.tagall', '.tagnotadmin', '.hidetag', '.antilink', '.antitag', '.setgdesc', '.setgname', '.setgpp', '.welcome', '.goodbye', '.antibadword', '.chatbot', '.clear'];
-        const ownerCommands = ['.mode', '.autostatus', '.antidelete', '.cleartmp', '.setpp', '.clearsession', '.areact', '.autoreact', '.autotyping', '.autoread', '.pmblocker', '.anticall', '.update'];
+        const ownerCommands = [ '.ipinfo', '.dns', '.whois', '.subfinder', '.portscan', '.headers', '.hashid', 
+    '.encode', '.decode', '.mode', '.autostatus', '.antidelete', '.cleartmp', '.setpp', '.clearsession', '.areact', '.autoreact', '.autotyping', '.autoread', '.pmblocker', '.anticall', '.update'];
         const groupOnlyCommands = ['.tagall', '.tagnotadmin', '.hidetag', '.antilink', '.antitag', '.welcome', '.goodbye', '.antibadword', '.chatbot', '.ship', '.groupinfo', '.resetlink', '.staff', '.setgdesc', '.setgname', '.setgpp', '.clear'];
 
         const isAdminCommand = adminCommands.some(cmd => userMessage.startsWith(cmd));
