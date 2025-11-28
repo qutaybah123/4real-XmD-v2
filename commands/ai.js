@@ -7,7 +7,7 @@ async function aiCommand(sock, chatId, message) {
         
         if (!text) {
             return await sock.sendMessage(chatId, { 
-                text: "Please provide a question after .gpt or .gemini\n\nExample: .gpt write a basic html code"
+                text: "Please provide a question after the AI command\n\nExample: .katcoder write a basic html code"
             }, {
                 quoted: message
             });
@@ -20,7 +20,7 @@ async function aiCommand(sock, chatId, message) {
 
         if (!query) {
             return await sock.sendMessage(chatId, { 
-                text: "Please provide a question after .gpt or .gemini"
+                text: "Please provide a question after the AI command"
             }, {quoted:message});
         }
 
@@ -42,6 +42,66 @@ async function aiCommand(sock, chatId, message) {
                     return response.ok;
                 } catch (error) {
                     return false;
+                }
+            }
+
+            // Generic AI Model Function with separate API keys
+            async function callAIModel(modelName, apiKey, query, systemPrompt = null) {
+                if (!apiKey) {
+                    throw new Error(`${modelName} API key not configured.`);
+                }
+
+                const keyValid = await testOpenRouterKey(apiKey);
+                if (!keyValid) {
+                    throw new Error(`${modelName} API key is invalid or expired`);
+                }
+
+                const messages = [];
+                
+                // Add system prompt if provided
+                if (systemPrompt) {
+                    messages.push({
+                        "role": "system",
+                        "content": systemPrompt
+                    });
+                }
+                
+                // Add user query
+                messages.push({
+                    "role": "user",
+                    "content": query
+                });
+
+                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${apiKey}`,
+                        "HTTP-Referer": "https://github.com/your-bot",
+                        "X-Title": "WhatsApp AI Bot",
+                        "Content-Type": "application/json",
+                        "User-Agent": "WhatsApp-Bot/1.0"
+                    },
+                    body: JSON.stringify({
+                        "model": modelName,
+                        "messages": messages,
+                        "temperature": 0.7,
+                        "max_tokens": 2048
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    if (response.status === 429) {
+                        throw new Error(`Rate limit exceeded for ${modelName}. Please try again in a few minutes.`);
+                    }
+                    throw new Error(`${modelName} API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (data.choices?.[0]?.message?.content) {
+                    return data.choices[0].message.content.trim();
+                } else {
+                    throw new Error(`No content in response from ${modelName}`);
                 }
             }
 
@@ -159,229 +219,173 @@ async function aiCommand(sock, chatId, message) {
                     text: `🤖 *Grok Follow-up*:\n\n${followUpResponse.content}`
                 }, { quoted: message });
                 
-            } else if (command === '.gpt') {
-                // OpenRouter OpenAI Models
-                if (!global.OPENAI_API_KEY) {
-                    throw new Error('OpenAI API key not configured. Set global.OPENAI_API_KEY');
+            } else if (command === '.katcoder' || command === '.kat') {
+                // Kwaipilot Kat Coder Pro - Coding specialist
+                if (!global.OPENKATCODER_KEY) {
+                    throw new Error('Kat Coder API key not configured. Set global.OPENKATCODER_KEY');
                 }
 
-                const keyValid = await testOpenRouterKey(global.OPENAI_API_KEY);
-                if (!keyValid) {
-                    throw new Error('OpenAI API key is invalid or expired');
-                }
-
-                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${global.OPENAI_API_KEY}`,
-                        "HTTP-Referer": "https://github.com/your-bot",
-                        "X-Title": "WhatsApp AI Bot",
-                        "Content-Type": "application/json",
-                        "User-Agent": "WhatsApp-Bot/1.0"
-                    },
-                    body: JSON.stringify({
-                        "model": "openai/gpt-5.1-codex",
-                        "messages": [{"role": "user", "content": query}],
-                        "temperature": 0.7,
-                        "max_tokens": 2048
-                    })
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.text();
-                    if (response.status === 429) {
-                        throw new Error('Rate limit exceeded for OpenAI. Please try again in a few minutes.');
-                    }
-                    throw new Error(`OpenAI API error: ${response.status}`);
-                }
-
-                const data = await response.json();
-                if (data.choices?.[0]?.message?.content) {
-                    await sock.sendMessage(chatId, {
-                        text: data.choices[0].message.content.trim()
-                    }, { quoted: message });
-                } else {
-                    throw new Error('No content in response from OpenAI');
-                }
+                const response = await callAIModel(
+                    "kwaipilot/kat-coder-pro:free", 
+                    global.OPENKATCODER_KEY,
+                    query,
+                    "You are Kat Coder Pro, an expert programming assistant. Provide clean, efficient code solutions with explanations."
+                );
                 
-            } else if (command === '.claude') {
-                if (!global.OPENANTHROPIC_KEY) {
-                    throw new Error('Anthropic API key not configured. Set global.OPENANTHROPIC_KEY');
+                await sock.sendMessage(chatId, {
+                    text: `💻 *Kat Coder Pro*:\n\n${response}`
+                }, { quoted: message });
+                
+            } else if (command === '.longcat' || command === '.long') {
+                // Meituan Longcat Flash Chat - Fast general AI
+                if (!global.OPENLONGCAT_KEY) {
+                    throw new Error('Longcat API key not configured. Set global.OPENLONGCAT_KEY');
                 }
 
-                const keyValid = await testOpenRouterKey(global.OPENANTHROPIC_KEY);
-                if (!keyValid) {
-                    throw new Error('Anthropic API key is invalid or expired');
+                const response = await callAIModel(
+                    "meituan/longcat-flash-chat:free", 
+                    global.OPENLONGCAT_KEY,
+                    query,
+                    "You are Longcat Flash Chat, a fast and efficient AI assistant. Provide quick, helpful responses."
+                );
+                
+                await sock.sendMessage(chatId, {
+                    text: `🐱 *Longcat Flash Chat*:\n\n${response}`
+                }, { quoted: message });
+                
+            } else if (command === '.glm' || command === '.glm45') {
+                // Z-AI GLM 4.5 Air - General language model
+                if (!global.OPENGLM_KEY) {
+                    throw new Error('GLM API key not configured. Set global.OPENGLM_KEY');
                 }
 
-                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${global.OPENANTHROPIC_KEY}`,
-                        "HTTP-Referer": "https://github.com/your-bot",
-                        "X-Title": "WhatsApp AI Bot",
-                        "Content-Type": "application/json",
-                        "User-Agent": "WhatsApp-Bot/1.0"
-                    },
-                    body: JSON.stringify({
-                        "model": "anthropic/claude-opus-4",
-                        "messages": [
-                            { "role": "system", "content": "You are Claude opus-4, a highly advanced AI model. Be clear, concise, and helpful in your responses." },
-                            { "role": "user", "content": query }
-                        ],
-                        "temperature": 0.7,
-                        "max_tokens": 4096
-                    })
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.text();
-                    if (response.status === 429) {
-                        throw new Error('Rate limit exceeded for Claude. Please try again in a few minutes.');
-                    }
-                    throw new Error(`Claude API error: ${response.status} - ${errorData}`);
+                const response = await callAIModel(
+                    "z-ai/glm-4.5-air:free", 
+                    global.OPENGLM_KEY,
+                    query,
+                    "You are GLM 4.5 Air, a versatile AI assistant. Provide comprehensive and helpful responses."
+                );
+                
+                await sock.sendMessage(chatId, {
+                    text: `🌀 *GLM 4.5 Air*:\n\n${response}`
+                }, { quoted: message });
+                
+            } else if (command === '.qwen' || command === '.qwencoder') {
+                // Qwen Coder - Coding specialist
+                if (!global.OPENQWEN_KEY) {
+                    throw new Error('Qwen API key not configured. Set global.OPENQWEN_KEY');
                 }
 
-                const data = await response.json();
-                if (data.choices?.[0]?.message?.content) {
-                    await sock.sendMessage(chatId, {
-                        text: data.choices[0].message.content.trim()
-                    }, { quoted: message });
-                } else {
-                    throw new Error('Invalid response from Claude Opus 4');
+                const response = await callAIModel(
+                    "qwen/qwen3-coder:free", 
+                    global.OPENQWEN_KEY,
+                    query,
+                    "You are Qwen Coder, an expert programming assistant. Write clean, efficient code with best practices."
+                );
+                
+                await sock.sendMessage(chatId, {
+                    text: `🔧 *Qwen Coder*:\n\n${response}`
+                }, { quoted: message });
+                
+            } else if (command === '.kimi' || command === '.kimi2') {
+                // Moonshot Kimi K2 - General AI
+                if (!global.OPENKIMI_KEY) {
+                    throw new Error('Kimi API key not configured. Set global.OPENKIMI_KEY');
                 }
+
+                const response = await callAIModel(
+                    "moonshotai/kimi-k2:free", 
+                    global.OPENKIMI_KEY,
+                    query,
+                    "You are Kimi K2, a helpful AI assistant. Provide clear and accurate responses."
+                );
+                
+                await sock.sendMessage(chatId, {
+                    text: `🌙 *Kimi K2*:\n\n${response}`
+                }, { quoted: message });
+                
+            } else if (command === '.hermes' || command === '.hermes405') {
+                // NousResearch Hermes 3 - Large model
+                if (!global.OPENHERMES_KEY) {
+                    throw new Error('Hermes API key not configured. Set global.OPENHERMES_KEY');
+                }
+
+                const response = await callAIModel(
+                    "nousresearch/hermes-3-llama-3.1-405b:free", 
+                    global.OPENHERMES_KEY,
+                    query,
+                    "You are Hermes 3, a highly advanced AI model with 405B parameters. Provide detailed, comprehensive responses."
+                );
+                
+                await sock.sendMessage(chatId, {
+                    text: `⚡ *Hermes 3 (405B)*:\n\n${response}`
+                }, { quoted: message });
+                
             } else if (command === '.mistral') {
+                // Mistral
                 if (!global.OPENMISTRAL_KEY) {
                     throw new Error('Mistral API key not configured. Set global.OPENMISTRAL_KEY');
                 }
 
-                const keyValid = await testOpenRouterKey(global.OPENMISTRAL_KEY);
-                if (!keyValid) {
-                    throw new Error('Mistral API key is invalid or expired');
-                }
-
-                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${global.OPENMISTRAL_KEY}`,
-                        "HTTP-Referer": "https://github.com/your-bot",
-                        "X-Title": "WhatsApp AI Bot",
-                        "Content-Type": "application/json",
-                        "User-Agent": "WhatsApp-Bot/1.0"
-                    },
-                    body: JSON.stringify({
-                        "model": "mistralai/mistral-7b-instruct:free",
-                        "messages": [{"role": "user", "content": query}],
-                        "temperature": 0.7,
-                        "max_tokens": 2048
-                    })
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.text();
-                    if (response.status === 429) {
-                        throw new Error('Rate limit exceeded for Mistral. Please try again in a few minutes.');
-                    }
-                    throw new Error(`Mistral API error: ${response.status}`);
-                }
-
-                const data = await response.json();
-                if (data.choices?.[0]?.message?.content) {
-                    await sock.sendMessage(chatId, {
-                        text: data.choices[0].message.content.trim()
-                    }, { quoted: message });
-                } else {
-                    throw new Error('Invalid response from Mistral');
-                }
+                const response = await callAIModel(
+                    "mistralai/mistral-7b-instruct:free", 
+                    global.OPENMISTRAL_KEY,
+                    query,
+                    "You are Mistral 7B, an efficient AI assistant. Provide helpful responses."
+                );
+                
+                await sock.sendMessage(chatId, {
+                    text: `🌪️ *Mistral 7B*:\n\n${response}`
+                }, { quoted: message });
+                
             } else if (command === '.metaai') {
+                // Meta AI
                 if (!global.OPENMETA_KEY) {
                     throw new Error('Meta AI API key not configured. Set global.OPENMETA_KEY');
                 }
 
-                const keyValid = await testOpenRouterKey(global.OPENMETA_KEY);
-                if (!keyValid) {
-                    throw new Error('Meta AI API key is invalid or expired');
-                }
-
-                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${global.OPENMETA_KEY}`,
-                        "HTTP-Referer": "https://github.com/your-bot",
-                        "X-Title": "WhatsApp AI Bot",
-                        "Content-Type": "application/json",
-                        "User-Agent": "WhatsApp-Bot/1.0"
-                    },
-                    body: JSON.stringify({
-                        "model": "meta-llama/llama-3.3-70b-instruct:free",
-                        "messages": [{"role": "user", "content": query}],
-                        "temperature": 0.7,
-                        "max_tokens": 2048
-                    })
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.text();
-                    if (response.status === 429) {
-                        throw new Error('Rate limit exceeded for Meta AI. Please try again in a few minutes.');
-                    }
-                    throw new Error(`Meta AI API error: ${response.status}`);
-                }
-
-                const data = await response.json();
-                if (data.choices?.[0]?.message?.content) {
-                    await sock.sendMessage(chatId, {
-                        text: data.choices[0].message.content.trim()
-                    }, { quoted: message });
-                } else {
-                    throw new Error('Invalid response from Meta AI');
-                }
+                const response = await callAIModel(
+                    "meta-llama/llama-3.3-70b-instruct:free", 
+                    global.OPENMETA_KEY,
+                    query,
+                    "You are Meta Llama 3.3, a powerful AI assistant. Provide helpful and accurate responses."
+                );
+                
+                await sock.sendMessage(chatId, {
+                    text: `🦙 *Meta Llama 3.3*:\n\n${response}`
+                }, { quoted: message });
+                
             } else if (command === '.nemotron' || command === '.nvidia') {
+                // NVIDIA
                 if (!global.OPENNVIDIA_KEY) {
                     throw new Error('NVIDIA API key not configured. Set global.OPENNVIDIA_KEY');
                 }
 
-                const keyValid = await testOpenRouterKey(global.OPENNVIDIA_KEY);
-                if (!keyValid) {
-                    throw new Error('NVIDIA API key is invalid or expired');
-                }
-
-                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${global.OPENNVIDIA_KEY}`,
-                        "HTTP-Referer": "https://github.com/your-bot",
-                        "X-Title": "WhatsApp AI Bot",
-                        "Content-Type": "application/json",
-                        "User-Agent": "WhatsApp-Bot/1.0"
-                    },
-                    body: JSON.stringify({
-                        "model": "nvidia/nemotron-nano-9b-v2:free",
-                        "messages": [{"role": "user", "content": query}],
-                        "temperature": 0.7,
-                        "max_tokens": 2048
-                    })
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.text();
-                    if (response.status === 429) {
-                        throw new Error('Rate limit exceeded for NVIDIA. Please try again in a few minutes.');
-                    }
-                    throw new Error(`NVIDIA API error: ${response.status}`);
-                }
-
-                const data = await response.json();
-                if (data.choices?.[0]?.message?.content) {
-                    await sock.sendMessage(chatId, {
-                        text: data.choices[0].message.content.trim()
-                    }, { quoted: message });
-                } else {
-                    throw new Error('Invalid response from NVIDIA');
-                }
+                const response = await callAIModel(
+                    "nvidia/nemotron-nano-9b-v2:free", 
+                    global.OPENNVIDIA_KEY,
+                    query,
+                    "You are NVIDIA Nemotron, an AI assistant. Provide helpful responses."
+                );
+                
+                await sock.sendMessage(chatId, {
+                    text: `🎮 *NVIDIA Nemotron*:\n\n${response}`
+                }, { quoted: message });
+                
             } else {
                 return await sock.sendMessage(chatId, {
-                    text: "❌ Unknown AI command. Available commands: .gpt, .claude, .mistral, .metaai, .nemotron, .grok, .grokfollow"
+                    text: `❌ Unknown AI command. Available commands:\n\n` +
+                          `• .grok - Grok 4.1 Fast with reasoning\n` +
+                          `• .grokfollow - Follow-up questions\n` +
+                          `• .katcoder/.kat - Kat Coder Pro (coding)\n` +
+                          `• .longcat/.long - Longcat Flash Chat\n` +
+                          `• .glm/.glm45 - GLM 4.5 Air\n` +
+                          `• .qwen/.qwencoder - Qwen Coder\n` +
+                          `• .kimi/.kimi2 - Kimi K2\n` +
+                          `• .hermes/.hermes405 - Hermes 3 (405B)\n` +
+                          `• .mistral - Mistral 7B\n` +
+                          `• .metaai - Meta Llama 3.3\n` +
+                          `• .nemotron/.nvidia - NVIDIA Nemotron`
                 }, { quoted: message });
             }
         } catch (error) {
