@@ -102,6 +102,18 @@ async function helpCommand(sock, chatId, message) {
 ▢ .mention <on/off>
 └───────────
 
+┌─⊷ *CRYPTO*
+▢ .crypto bitcoin 
+▢ .crypto ethereum 
+▢ .bitcoin / .btc  
+▢ .cryptos        
+▢ .cryptonews      
+▢ .wallet       
+▢ .calc <amount> <coin> 
+▢ .eth           
+▢ .doge          
+└───────────
+
 ┌─⊷ *STICKERS / IMAGES*
 ▢ .blur <image>
 ▢ .simage <reply to sticker>
