@@ -71,7 +71,123 @@ async function aiCommand(sock, chatId, message) {
                 throw new Error('All fallback APIs failed');
             }
 
-            if (command === '.gpt') {
+            // Grok with Reasoning Function
+            async function grokWithReasoning(query, followUpQuestion = null) {
+                if (!global.OPENROUTER_API_KEY) {
+                    throw new Error('OpenRouter API key not configured. Set global.OPENROUTER_API_KEY');
+                }
+
+                const keyValid = await testOpenRouterKey(global.OPENROUTER_API_KEY);
+                if (!keyValid) {
+                    throw new Error('OpenRouter API key is invalid or expired');
+                }
+
+                // First API call with reasoning
+                let response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${global.OPENROUTER_API_KEY}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "model": "x-ai/grok-4.1-fast:free",
+                        "messages": [
+                            {
+                                "role": "user",
+                                "content": query
+                            }
+                        ],
+                        "reasoning": {"enabled": true}
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Grok API error: ${response.status}`);
+                }
+
+                // Extract the assistant message with reasoning_details
+                const result = await response.json();
+                const assistantMessage = result.choices[0].message;
+
+                // If no follow-up question, return the first response
+                if (!followUpQuestion) {
+                    return {
+                        content: assistantMessage.content,
+                        reasoning_details: assistantMessage.reasoning_details
+                    };
+                }
+
+                // Preserve the assistant message with reasoning_details for follow-up
+                const messages = [
+                    {
+                        role: 'user',
+                        content: query,
+                    },
+                    {
+                        role: 'assistant',
+                        content: assistantMessage.content,
+                        reasoning_details: assistantMessage.reasoning_details,
+                    },
+                    {
+                        role: 'user',
+                        content: followUpQuestion,
+                    },
+                ];
+
+                // Second API call - model continues reasoning from where it left off
+                const response2 = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${global.OPENROUTER_API_KEY}`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        "model": "x-ai/grok-4.1-fast:free",
+                        "messages": messages  // Includes preserved reasoning_details
+                    })
+                });
+
+                if (!response2.ok) {
+                    throw new Error(`Grok follow-up API error: ${response2.status}`);
+                }
+
+                const result2 = await response2.json();
+                return {
+                    content: result2.choices[0].message.content,
+                    reasoning_details: result2.choices[0].message.reasoning_details
+                };
+            }
+
+            if (command === '.grok') {
+                // Use Grok with reasoning
+                const grokResponse = await grokWithReasoning(query);
+                
+                let responseText = `🤖 *Grok Response*:\n\n${grokResponse.content}\n\n`;
+                
+                if (grokResponse.reasoning_details) {
+                    responseText += `🧠 *Reasoning Available*: Yes\n`;
+                }
+                
+                responseText += `\n💡 *Tip*: Use .grokfollow [question] for follow-up questions with continued reasoning`;
+                
+                await sock.sendMessage(chatId, {
+                    text: responseText
+                }, { quoted: message });
+                
+            } else if (command === '.grokfollow') {
+                // Handle follow-up questions with continued reasoning
+                // This would need to store the previous conversation context
+                // For now, we'll use a simple implementation
+                const followUpResponse = await grokWithReasoning(
+                    "Previous context not stored in this implementation", 
+                    query
+                );
+                
+                await sock.sendMessage(chatId, {
+                    text: `🤖 *Grok Follow-up*:\n\n${followUpResponse.content}`
+                }, { quoted: message });
+                
+            } else if (command === '.gpt') {
                 // Option 1: OpenRouter OpenAI Models
                 if (global.OPENAI_API_KEY) {
                     try {
@@ -90,7 +206,7 @@ async function aiCommand(sock, chatId, message) {
                                 "User-Agent": "WhatsApp-Bot/1.0"
                             },
                             body: JSON.stringify({
-                                "model": "openai/gpt-5-pro", // You can change to other OpenAI models
+                                "model": "openai/gpt-5-pro",
                                 "messages": [{"role": "user", "content": query}],
                                 "temperature": 0.7,
                                 "max_tokens": 2048
@@ -137,53 +253,52 @@ async function aiCommand(sock, chatId, message) {
                     throw new Error(`GPT Error: ${fallbackError.message}`);
                 }
             } else if (command === '.claude') {
-    if (!global.OPENANTHROPIC_KEY) {
-        throw new Error('Anthropic API key not configured. Set global.OPENANTHROPIC_KEY');
-    }
+                if (!global.OPENANTHROPIC_KEY) {
+                    throw new Error('Anthropic API key not configured. Set global.OPENANTHROPIC_KEY');
+                }
 
-    const keyValid = await testOpenRouterKey(global.OPENANTHROPIC_KEY);
-    if (!keyValid) {
-        throw new Error('Anthropic API key is invalid or expired');
-    }
+                const keyValid = await testOpenRouterKey(global.OPENANTHROPIC_KEY);
+                if (!keyValid) {
+                    throw new Error('Anthropic API key is invalid or expired');
+                }
 
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${global.OPENANTHROPIC_KEY}`,
-            "HTTP-Referer": "https://github.com/your-bot",
-            "X-Title": "WhatsApp AI Bot",
-            "Content-Type": "application/json",
-            "User-Agent": "WhatsApp-Bot/1.0"
-        },
-        body: JSON.stringify({
-            "model": "anthropic/claude-sonnet-4.5",
-            "messages": [
-                { "role": "system", "content": "You are Claude Sonnet 4.5, a highly advanced AI model. Be clear, concise, and helpful in your responses." },
-                { "role": "user", "content": query }
-            ],
-            "temperature": 0.7,
-            "max_tokens": 4096
-        })
-    });
+                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${global.OPENANTHROPIC_KEY}`,
+                        "HTTP-Referer": "https://github.com/your-bot",
+                        "X-Title": "WhatsApp AI Bot",
+                        "Content-Type": "application/json",
+                        "User-Agent": "WhatsApp-Bot/1.0"
+                    },
+                    body: JSON.stringify({
+                        "model": "anthropic/claude-opus-4",
+                        "messages": [
+                            { "role": "system", "content": "You are Claude opus-4, a highly advanced AI model. Be clear, concise, and helpful in your responses." },
+                            { "role": "user", "content": query }
+                        ],
+                        "temperature": 0.7,
+                        "max_tokens": 4096
+                    })
+                });
 
-    if (!response.ok) {
-        const errorData = await response.text();
-        if (response.status === 429) {
-            throw new Error('Rate limit exceeded for Claude. Please try again in a few minutes.');
-        }
-        throw new Error(`Claude API error: ${response.status} - ${errorData}`);
-    }
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    if (response.status === 429) {
+                        throw new Error('Rate limit exceeded for Claude. Please try again in a few minutes.');
+                    }
+                    throw new Error(`Claude API error: ${response.status} - ${errorData}`);
+                }
 
-    const data = await response.json();
-    if (data.choices?.[0]?.message?.content) {
-        await sock.sendMessage(chatId, {
-            text: data.choices[0].message.content.trim()
-        }, { quoted: message });
-    } else {
-        throw new Error('Invalid response from Claude Sonnet 4.5');
-    }
-}
- else if (command === '.deepseek' || command === '.deepseekr1') {
+                const data = await response.json();
+                if (data.choices?.[0]?.message?.content) {
+                    await sock.sendMessage(chatId, {
+                        text: data.choices[0].message.content.trim()
+                    }, { quoted: message });
+                } else {
+                    throw new Error('Invalid response from Claude Sonnet 4.5');
+                }
+            } else if (command === '.deepseek' || command === '.deepseekr1') {
                 // Try OpenRouter DeepSeek first
                 if (global.OPENDEEPSEEKR1_KEY) {
                     try {
@@ -213,7 +328,6 @@ async function aiCommand(sock, chatId, message) {
                             const errorData = await response.text();
                             if (response.status === 429) {
                                 console.log('DeepSeek rate limit hit, using fallback...');
-                                // Continue to fallback instead of throwing error
                                 throw new Error('RATE_LIMIT');
                             }
                             throw new Error(`DeepSeek API error: ${response.status}`);
@@ -235,7 +349,7 @@ async function aiCommand(sock, chatId, message) {
                     }
                 }
 
-                // DeepSeek Fallback - Use GPT/Gemini APIs as backup
+                // DeepSeek Fallback
                 try {
                     const fallbackResponse = await deepSeekFallback(query);
                     await sock.sendMessage(chatId, {
@@ -375,7 +489,7 @@ async function aiCommand(sock, chatId, message) {
                 }
             } else {
                 return await sock.sendMessage(chatId, {
-                    text: "❌ Unknown AI command. Available commands: .gpt, .gemini, .deepseek, .mistral, .metaai, .nemotron"
+                    text: "❌ Unknown AI command. Available commands: .gpt, .gemini, .deepseek, .mistral, .metaai, .nemotron, .grok, .grokfollow"
                 }, { quoted: message });
             }
         } catch (error) {
