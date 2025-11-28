@@ -132,7 +132,11 @@ async function helpCommand(sock, chatId, message) {
 ▢ .metaai <question>
 ▢ .nemotron <question>
 ▢ .nvidia <question>
-▢ .imagine <prompt>
+▢ .claude <question>
+▢ .gpt <question>
+▢ .grok <question>
+▢ .grokfollow <question>
+▢ .imagine <question>
 ▢ .flux <prompt>
 ▢ .sora <prompt>
 └───────────
