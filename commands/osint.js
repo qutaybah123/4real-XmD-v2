@@ -3,6 +3,8 @@ const dns = require('dns').promises;
 const { whois } = require('whois-json');
 const base64 = require('base-64');
 const utf8 = require('utf8');
+const { isSudo } = require('../lib/index');
+const isOwnerOrSudo = require('../lib/isOwner');
 
 // Define channelInfo locally for this module
 const channelInfo = {
@@ -12,9 +14,25 @@ const channelInfo = {
     }
 };
 
+// Owner check helper function
+async function checkOwnerAccess(sock, chatId, message, senderId) {
+    const isOwner = await isOwnerOrSudo(senderId, sock, chatId);
+    if (!isOwner && !message.key.fromMe) {
+        await sock.sendMessage(chatId, {
+            text: '❌ This OSINT command is only available for the owner or sudo!',
+            ...channelInfo
+        }, { quoted: message });
+        return false;
+    }
+    return true;
+}
+
 // IP Info Lookup
-async function ipInfoCommand(sock, chatId, message, ip) {
+async function ipInfoCommand(sock, chatId, message, ip, senderId) {
     try {
+        // Owner check
+        if (!await checkOwnerAccess(sock, chatId, message, senderId)) return;
+        
         await sock.sendPresenceUpdate('composing', chatId);
         
         if (!ip) {
@@ -70,8 +88,11 @@ async function ipInfoCommand(sock, chatId, message, ip) {
 }
 
 // DNS Lookup
-async function dnsLookupCommand(sock, chatId, message, domain) {
+async function dnsLookupCommand(sock, chatId, message, domain, senderId) {
     try {
+        // Owner check
+        if (!await checkOwnerAccess(sock, chatId, message, senderId)) return;
+        
         await sock.sendPresenceUpdate('composing', chatId);
         
         if (!domain) {
@@ -151,8 +172,11 @@ async function dnsLookupCommand(sock, chatId, message, domain) {
 }
 
 // WHOIS Lookup
-async function whoisCommand(sock, chatId, message, domain) {
+async function whoisCommand(sock, chatId, message, domain, senderId) {
     try {
+        // Owner check
+        if (!await checkOwnerAccess(sock, chatId, message, senderId)) return;
+        
         await sock.sendPresenceUpdate('composing', chatId);
         
         if (!domain) {
@@ -197,8 +221,11 @@ async function whoisCommand(sock, chatId, message, domain) {
 }
 
 // Subdomain Finder (Basic)
-async function subdomainFinderCommand(sock, chatId, message, domain) {
+async function subdomainFinderCommand(sock, chatId, message, domain, senderId) {
     try {
+        // Owner check
+        if (!await checkOwnerAccess(sock, chatId, message, senderId)) return;
+        
         await sock.sendPresenceUpdate('composing', chatId);
         
         if (!domain) {
@@ -256,8 +283,11 @@ async function subdomainFinderCommand(sock, chatId, message, domain) {
 }
 
 // Port Scanner (Basic)
-async function portScanCommand(sock, chatId, message, host) {
+async function portScanCommand(sock, chatId, message, host, senderId) {
     try {
+        // Owner check
+        if (!await checkOwnerAccess(sock, chatId, message, senderId)) return;
+        
         await sock.sendPresenceUpdate('composing', chatId);
         
         if (!host) {
@@ -349,8 +379,11 @@ function getServiceName(port) {
 }
 
 // HTTP Headers Scanner
-async function headersCommand(sock, chatId, message, url) {
+async function headersCommand(sock, chatId, message, url, senderId) {
     try {
+        // Owner check
+        if (!await checkOwnerAccess(sock, chatId, message, senderId)) return;
+        
         await sock.sendPresenceUpdate('composing', chatId);
         
         if (!url) {
@@ -402,8 +435,11 @@ async function headersCommand(sock, chatId, message, url) {
 }
 
 // Hash Identifier
-async function hashIdCommand(sock, chatId, message, hash) {
+async function hashIdCommand(sock, chatId, message, hash, senderId) {
     try {
+        // Owner check
+        if (!await checkOwnerAccess(sock, chatId, message, senderId)) return;
+        
         await sock.sendPresenceUpdate('composing', chatId);
         
         if (!hash) {
@@ -478,8 +514,11 @@ async function hashIdCommand(sock, chatId, message, hash) {
 }
 
 // Base64 Encode
-async function encodeCommand(sock, chatId, message, text) {
+async function encodeCommand(sock, chatId, message, text, senderId) {
     try {
+        // Owner check
+        if (!await checkOwnerAccess(sock, chatId, message, senderId)) return;
+        
         await sock.sendPresenceUpdate('composing', chatId);
         
         if (!text) {
@@ -510,8 +549,11 @@ async function encodeCommand(sock, chatId, message, text) {
 }
 
 // Base64 Decode
-async function decodeCommand(sock, chatId, message, text) {
+async function decodeCommand(sock, chatId, message, text, senderId) {
     try {
+        // Owner check
+        if (!await checkOwnerAccess(sock, chatId, message, senderId)) return;
+        
         await sock.sendPresenceUpdate('composing', chatId);
         
         if (!text) {
