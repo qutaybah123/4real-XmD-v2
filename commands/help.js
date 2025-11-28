@@ -40,7 +40,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .metaai <question>
 ▢ .nemotron <question>
 ▢ .nvidia <question>
-▢ .gpt <question>
 ▢ .grok <question>
 ▢ .grokfollow <question>
 ▢ .katcoder <question>
