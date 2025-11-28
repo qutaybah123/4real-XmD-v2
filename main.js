@@ -765,7 +765,7 @@ case userMessage.startsWith('.setimageurl') || userMessage.startsWith('.setbotim
     break;
                 
 // Reaction commands
-case userMessage.startsWith('.cry'):
+case userMessage === '.cry':
     await cryCommand(sock, chatId, message);
     commandExecuted = true;
     break;
