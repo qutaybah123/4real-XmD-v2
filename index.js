@@ -50,12 +50,12 @@ global.OPENMISTRAL_KEY = "sk-or-v1-d8cde9c54b82040793e0cca8b28dc06af88520bbd438b
 global.OPENMETA_KEY = "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";
 global.OPENNVIDIA_KEY = "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";
 global.OPENROUTER_API_KEY = "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";
-global.OPENKATCODER_KEY = "your-katcoder-openrouter-key";
-global.OPENLONGCAT_KEY = "your-longcat-openrouter-key";
-global.OPENGLM_KEY = "your-glm-openrouter-key";
-global.OPENQWEN_KEY = "your-qwen-openrouter-key";
-global.OPENKIMI_KEY = "your-kimi-openrouter-key";
-global.OPENHERMES_KEY = "your-hermes-openrouter-key";
+global.OPENKATCODER_KEY = "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";
+global.OPENLONGCAT_KEY = "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";
+global.OPENGLM_KEY = "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";
+global.OPENQWEN_KEY = "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";
+global.OPENKIMI_KEY = "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";
+global.OPENHERMES_KEY = "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";
 
 // Import lightweight store
 const store = require('./lib/lightweight_store')
