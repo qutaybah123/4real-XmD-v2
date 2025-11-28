@@ -50,6 +50,12 @@ global.OPENMISTRAL_KEY = "sk-or-v1-d8cde9c54b82040793e0cca8b28dc06af88520bbd438b
 global.OPENMETA_KEY = "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";
 global.OPENNVIDIA_KEY = "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";
 global.OPENROUTER_API_KEY = "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";
+global.OPENKATCODER_KEY = "your-katcoder-openrouter-key";
+global.OPENLONGCAT_KEY = "your-longcat-openrouter-key";
+global.OPENGLM_KEY = "your-glm-openrouter-key";
+global.OPENQWEN_KEY = "your-qwen-openrouter-key";
+global.OPENKIMI_KEY = "your-kimi-openrouter-key";
+global.OPENHERMES_KEY = "your-hermes-openrouter-key";
 
 // Import lightweight store
 const store = require('./lib/lightweight_store')
