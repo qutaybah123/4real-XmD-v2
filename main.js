@@ -47,6 +47,14 @@ const {
     glompCommand, biteCommand, pokeCommand, cringeCommand, danceCommand, killCommand,
     slapCommand, kissCommand
 } = require('./commands/reactions');
+const { 
+    cryptoPriceCommand, 
+    bitcoinRichCommand, 
+    multiCryptoCommand, 
+    cryptoNewsCommand, 
+    generateWalletCommand, 
+    cryptoCalculatorCommand 
+} = require('./commands/crypto');
 const praytimeCommand = require('./commands/praytime');
 const hackCommand = require('./commands/hack');
 const movieCommand = require('./commands/movie');
@@ -887,7 +895,55 @@ case userMessage.startsWith('.kiss'):
     commandExecuted = true;
     break;
 
-            
+            // Add these cases in your switch statement:
+
+case userMessage.startsWith('.crypto'):
+    const crypto = userMessage.split(' ')[1] || 'bitcoin';
+    await cryptoPriceCommand(sock, chatId, message, crypto);
+    commandExecuted = true;
+    break;
+
+case userMessage === '.bitcoin':
+case userMessage === '.btc':
+    await bitcoinRichCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage === '.cryptos':
+case userMessage === '.topcrypto':
+    await multiCryptoCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage === '.cryptonews':
+case userMessage === '.cnews':
+    await cryptoNewsCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage === '.wallet':
+case userMessage === '.genwallet':
+    await generateWalletCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.calc'):
+    const calcArgs = userMessage.split(' ').slice(1);
+    await cryptoCalculatorCommand(sock, chatId, message, calcArgs);
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.eth'):
+case userMessage.startsWith('.ethereum'):
+    await cryptoPriceCommand(sock, chatId, message, 'ethereum');
+    commandExecuted = true;
+    break;
+
+case userMessage.startsWith('.doge'):
+case userMessage.startsWith('.dogecoin'):
+    await cryptoPriceCommand(sock, chatId, message, 'dogecoin');
+    commandExecuted = true;
+    break;
             
             case userMessage === '.dare':
                 await dareCommand(sock, chatId, message);
