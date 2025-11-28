@@ -54,6 +54,18 @@ async function helpCommand(sock, chatId, message) {
 ▢ .sora <prompt>
 └───────────
 
+┌─⊷ *OSINT*
+▢ .ipinfo <ip>      
+▢ .dns <domain>      
+▢ .whois <domain>    
+▢ .subfinder <domain> 
+▢ .portscan <host>   
+▢ .headers <url>      
+▢ .hashid <hash>      
+▢ .encode   
+▢ .decode  
+└───────────
+
 ┌─⊷ *ADMIN*
 ▢ .ban @user
 ▢ .promote @user
