@@ -45,32 +45,6 @@ async function aiCommand(sock, chatId, message) {
                 }
             }
 
-            // DeepSeek Fallback APIs
-            async function deepSeekFallback(query) {
-                const fallbackApis = [
-                    `https://api.dreaded.site/api/chatgpt?text=${encodeURIComponent(query)}`,
-                    `https://vapis.my.id/api/gemini?q=${encodeURIComponent(query)}`,
-                    `https://api.siputzx.my.id/api/ai/gemini-pro?content=${encodeURIComponent(query)}`
-                ];
-
-                for (const api of fallbackApis) {
-                    try {
-                        console.log(`Trying DeepSeek fallback: ${api}`);
-                        const response = await fetch(api, { timeout: 10000 });
-                        const data = await response.json();
-
-                        if (data.message || data.data || data.answer || data.result || data.success) {
-                            const answer = data.message || data.data || data.answer || data.result || (data.success && data.result);
-                            return answer;
-                        }
-                    } catch (e) {
-                        console.log(`DeepSeek fallback API failed: ${api}`);
-                        continue;
-                    }
-                }
-                throw new Error('All fallback APIs failed');
-            }
-
             // Grok with Reasoning Function
             async function grokWithReasoning(query, followUpQuestion = null) {
                 if (!global.OPENROUTER_API_KEY) {
@@ -176,8 +150,6 @@ async function aiCommand(sock, chatId, message) {
                 
             } else if (command === '.grokfollow') {
                 // Handle follow-up questions with continued reasoning
-                // This would need to store the previous conversation context
-                // For now, we'll use a simple implementation
                 const followUpResponse = await grokWithReasoning(
                     "Previous context not stored in this implementation", 
                     query
@@ -188,70 +160,50 @@ async function aiCommand(sock, chatId, message) {
                 }, { quoted: message });
                 
             } else if (command === '.gpt') {
-                // Option 1: OpenRouter OpenAI Models
-                if (global.OPENAI_API_KEY) {
-                    try {
-                        const keyValid = await testOpenRouterKey(global.OPENAI_API_KEY);
-                        if (!keyValid) {
-                            throw new Error('OpenAI API key is invalid or expired');
-                        }
-
-                        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                            method: "POST",
-                            headers: {
-                                "Authorization": `Bearer ${global.OPENAI_API_KEY}`,
-                                "HTTP-Referer": "https://github.com/your-bot",
-                                "X-Title": "WhatsApp AI Bot",
-                                "Content-Type": "application/json",
-                                "User-Agent": "WhatsApp-Bot/1.0"
-                            },
-                            body: JSON.stringify({
-                                "model": "openai/gpt-5.1-codex",
-                                "messages": [{"role": "user", "content": query}],
-                                "temperature": 0.7,
-                                "max_tokens": 2048
-                            })
-                        });
-
-                        if (!response.ok) {
-                            const errorData = await response.text();
-                            if (response.status === 429) {
-                                throw new Error('Rate limit exceeded for OpenAI. Please try again in a few minutes.');
-                            }
-                            throw new Error(`OpenAI API error: ${response.status}`);
-                        }
-
-                        const data = await response.json();
-                        if (data.choices?.[0]?.message?.content) {
-                            return await sock.sendMessage(chatId, {
-                                text: data.choices[0].message.content.trim()
-                            }, { quoted: message });
-                        } else {
-                            throw new Error('No content in response from OpenAI');
-                        }
-                    } catch (openAIError) {
-                        console.error('OpenAI API Error:', openAIError);
-                        // Continue to fallback
-                    }
+                // OpenRouter OpenAI Models
+                if (!global.OPENAI_API_KEY) {
+                    throw new Error('OpenAI API key not configured. Set global.OPENAI_API_KEY');
                 }
 
-                // Fallback to original GPT API
-                try {
-                    const response = await axios.get(`https://api.dreaded.site/api/chatgpt?text=${encodeURIComponent(query)}`);
-                    
-                    if (response.data && response.data.success && response.data.result) {
-                        const answer = response.data.result.prompt;
-                        await sock.sendMessage(chatId, {
-                            text: answer
-                        }, {
-                            quoted: message
-                        });
-                    } else {
-                        throw new Error('Invalid response from fallback API');
-                    }
-                } catch (fallbackError) {
-                    throw new Error(`GPT Error: ${fallbackError.message}`);
+                const keyValid = await testOpenRouterKey(global.OPENAI_API_KEY);
+                if (!keyValid) {
+                    throw new Error('OpenAI API key is invalid or expired');
                 }
+
+                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${global.OPENAI_API_KEY}`,
+                        "HTTP-Referer": "https://github.com/your-bot",
+                        "X-Title": "WhatsApp AI Bot",
+                        "Content-Type": "application/json",
+                        "User-Agent": "WhatsApp-Bot/1.0"
+                    },
+                    body: JSON.stringify({
+                        "model": "openai/gpt-5.1-codex",
+                        "messages": [{"role": "user", "content": query}],
+                        "temperature": 0.7,
+                        "max_tokens": 2048
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    if (response.status === 429) {
+                        throw new Error('Rate limit exceeded for OpenAI. Please try again in a few minutes.');
+                    }
+                    throw new Error(`OpenAI API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (data.choices?.[0]?.message?.content) {
+                    await sock.sendMessage(chatId, {
+                        text: data.choices[0].message.content.trim()
+                    }, { quoted: message });
+                } else {
+                    throw new Error('No content in response from OpenAI');
+                }
+                
             } else if (command === '.claude') {
                 if (!global.OPENANTHROPIC_KEY) {
                     throw new Error('Anthropic API key not configured. Set global.OPENANTHROPIC_KEY');
@@ -296,67 +248,7 @@ async function aiCommand(sock, chatId, message) {
                         text: data.choices[0].message.content.trim()
                     }, { quoted: message });
                 } else {
-                    throw new Error('Invalid response from Claude Sonnet 4.5');
-                }
-            } else if (command === '.deepseek' || command === '.deepseekr1') {
-                // Try OpenRouter DeepSeek first
-                if (global.OPENDEEPSEEKR1_KEY) {
-                    try {
-                        const keyValid = await testOpenRouterKey(global.OPENDEEPSEEKR1_KEY);
-                        if (!keyValid) {
-                            throw new Error('DeepSeek API key is invalid or expired');
-                        }
-
-                        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                            method: "POST",
-                            headers: {
-                                "Authorization": `Bearer ${global.OPENDEEPSEEKR1_KEY}`,
-                                "HTTP-Referer": "https://github.com/your-bot",
-                                "X-Title": "WhatsApp AI Bot",
-                                "Content-Type": "application/json",
-                                "User-Agent": "WhatsApp-Bot/1.0"
-                            },
-                            body: JSON.stringify({
-                                "model": "deepseek/deepseek-r1:free",
-                                "messages": [{"role": "user", "content": query}],
-                                "temperature": 0.7,
-                                "max_tokens": 2048
-                            })
-                        });
-
-                        if (!response.ok) {
-                            const errorData = await response.text();
-                            if (response.status === 429) {
-                                console.log('DeepSeek rate limit hit, using fallback...');
-                                throw new Error('RATE_LIMIT');
-                            }
-                            throw new Error(`DeepSeek API error: ${response.status}`);
-                        }
-
-                        const data = await response.json();
-                        if (data.choices?.[0]?.message?.content) {
-                            return await sock.sendMessage(chatId, {
-                                text: data.choices[0].message.content.trim()
-                            }, { quoted: message });
-                        } else {
-                            throw new Error('Invalid response from DeepSeek');
-                        }
-                    } catch (openRouterError) {
-                        if (openRouterError.message !== 'RATE_LIMIT') {
-                            console.error('OpenRouter DeepSeek Error:', openRouterError);
-                        }
-                        // Continue to fallback
-                    }
-                }
-
-                // DeepSeek Fallback
-                try {
-                    const fallbackResponse = await deepSeekFallback(query);
-                    await sock.sendMessage(chatId, {
-                        text: `⚠️ DeepSeek rate limit exceeded. Using alternative AI:\n\n${fallbackResponse}`
-                    }, { quoted: message });
-                } catch (fallbackError) {
-                    throw new Error('DeepSeek is currently rate limited. Please try again in a few minutes or use .gpt or .gemini commands instead.');
+                    throw new Error('Invalid response from Claude Opus 4');
                 }
             } else if (command === '.mistral') {
                 if (!global.OPENMISTRAL_KEY) {
@@ -489,7 +381,7 @@ async function aiCommand(sock, chatId, message) {
                 }
             } else {
                 return await sock.sendMessage(chatId, {
-                    text: "❌ Unknown AI command. Available commands: .gpt, .gemini, .deepseek, .mistral, .metaai, .nemotron, .grok, .grokfollow"
+                    text: "❌ Unknown AI command. Available commands: .gpt, .claude, .mistral, .metaai, .nemotron, .grok, .grokfollow"
                 }, { quoted: message });
             }
         } catch (error) {
