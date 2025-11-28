@@ -53,6 +53,7 @@ global.OPENMISTRAL_KEY = "sk-or-v1-d8cde9c54b82040793e0cca8b28dc06af88520bbd438b
 global.OPENMETA_KEY = "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";
 global.OPENANTHROPIC_KEY = "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";
 global.OPENNVIDIA_KEY = "sk-or-v1-0f02e2597ec48c51fe5163f0e6d5a0c23dff2041ef9edb5e0cdc55b7260356c";
+global.OPENAI_API_KEY = "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"
 
 // Import lightweight store
 const store = require('./lib/lightweight_store')
