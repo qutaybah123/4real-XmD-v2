@@ -46,14 +46,10 @@ const { rmSync, existsSync } = require('fs')
 const { join } = require('path')
 
 const { storeMessage, handleMessageRevocation } = require('./commands/antidelete');
-global.OPENGEMINI2_0FLASH_KEY = "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";
-global.OPENGEMINI1_5FLASH_KEY = "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";  
-global.OPENDEEPSEEKR1_KEY = "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";
 global.OPENMISTRAL_KEY = "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";
 global.OPENMETA_KEY = "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";
-global.OPENANTHROPIC_KEY = "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";
 global.OPENNVIDIA_KEY = "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";
-global.OPENAI_API_KEY = "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"
+global.OPENROUTER_API_KEY = "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";
 
 // Import lightweight store
 const store = require('./lib/lightweight_store')
