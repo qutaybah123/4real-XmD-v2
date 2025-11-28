@@ -1430,8 +1430,7 @@ case userMessage.startsWith('.watercolor'):
                 await tiktokCommand(sock, chatId, message);
                 commandExecuted = true;
                 break;
-
-            case userMessage.startsWith('.gpt') || userMessage.startsWith('.claude') || userMessage.startsWith('.deepseek') || userMessage.startsWith('.mistral') || userMessage.startsWith('.metaai') || userMessage.startsWith('.nemotron') || userMessage.startsWith('.nvidia'):
+            case userMessage.startsWith('.gpt')  || userMessage.startsWith('.grok')  || userMessage.startsWith('.grokfollow')  || userMessage.startsWith('.claude') || userMessage.startsWith('.deepseek') || userMessage.startsWith('.mistral') || userMessage.startsWith('.metaai') || userMessage.startsWith('.nemotron') || userMessage.startsWith('.nvidia'):
                 await aiCommand(sock, chatId, message);
                 commandExecuted = true;
                 break;
