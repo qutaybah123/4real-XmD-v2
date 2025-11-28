@@ -58,9 +58,7 @@ async function setbotimageurlCommand(sock, chatId, message) {
             await saveBotImageUrl(imageUrl);
 
             const successMessage = 
-`🖼️ *BOT IMAGE URL UPDATED*
-
-✅ Successfully updated the bot's image URL!
+`✅ Successfully updated the bot's image URL!
 
 *New Image URL:*
 ${imageUrl}`;
@@ -70,7 +68,7 @@ ${imageUrl}`;
             }, { quoted: message });
 
             // Optionally send a preview of the new image
-            try {
+            /*try {
                 await sock.sendMessage(chatId, {
                     image: { url: imageUrl },
                     caption: "📸 *Preview of new bot image*"
@@ -80,7 +78,7 @@ ${imageUrl}`;
                 await sock.sendMessage(chatId, {
                     text: "⚠️ *Note:* Could not load image preview. Please verify the URL manually."
                 });
-            }
+            }*/
 
         } catch (error) {
             console.error("Image URL validation error:", error);
