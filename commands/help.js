@@ -54,18 +54,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .sora <prompt>
 └───────────
 
-┌─⊷ *OSINT*
-▢ .ipinfo <ip>      
-▢ .dns <domain>      
-▢ .whois <domain>    
-▢ .subfinder <domain> 
-▢ .portscan <host>   
-▢ .headers <url>      
-▢ .hashid <hash>      
-▢ .encode   
-▢ .decode  
-└───────────
-
 ┌─⊷ *ADMIN*
 ▢ .ban @user
 ▢ .promote @user
@@ -112,18 +100,6 @@ async function helpCommand(sock, chatId, message) {
 ▢ .pmblocker setmsg <text>
 ▢ .setmention <reply to msg/media>
 ▢ .mention <on/off>
-└───────────
-
-┌─⊷ *CRYPTO*
-▢ .crypto bitcoin 
-▢ .crypto ethereum 
-▢ .bitcoin / .btc  
-▢ .cryptos        
-▢ .cryptonews      
-▢ .wallet       
-▢ .calc <amount> <coin> 
-▢ .eth           
-▢ .doge          
 └───────────
 
 ┌─⊷ *STICKERS / IMAGES*
