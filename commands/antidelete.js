@@ -1,6 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 const { downloadContentFromMessage } = require('@whiskeysockets/baileys');
+
+// Load settings
+const settingsPath = path.join(__dirname, '../settings.js');
+let settings = { ownerNumber: '255624314178' };
+try {
+    settings = require(settingsPath);
+} catch (error) {
+    console.log('[ANTI-DELETE] Settings not found, using default owner');
+}
+
 if (!fs.existsSync(path.join(__dirname, '../data'))) {
     fs.mkdirSync(path.join(__dirname, '../data'), { recursive: true });
 }
@@ -138,9 +148,6 @@ async function handleMessageRevocation(sock, revocationMessage) {
     try {
         if (!revocationMessage?.message?.protocolMessage?.key?.id) return;
         
-        // Critical owner check - ignore owner deletions
-        if (revocationMessage.key.fromMe) return;
-
         const config = loadAntideleteConfig();
         if (!config.enabled) return;
 
@@ -148,10 +155,35 @@ async function handleMessageRevocation(sock, revocationMessage) {
         const original = messageStore.get(messageId);
         if (!original) return;
 
+        // ✅ Get owner JID from settings
+        const ownerJid = `${settings.ownerNumber}@s.whatsapp.net`;
+        
+        // ✅ CHECK 1: Is original sender the bot owner?
+        if (original.sender === ownerJid) {
+            console.log('[ANTI-DELETE] Silently ignoring owner deletion');
+            messageStore.delete(messageId);
+            return;
+        }
+
+        // ✅ CHECK 2: Is original sender the bot itself?
+        const botJid = sock.user.id;
+        if (original.sender === botJid || original.sender.includes(botJid.split(':')[0])) {
+            console.log('[ANTI-DELETE] Ignoring bot message deletion');
+            messageStore.delete(messageId);
+            return;
+        }
+
+        // ✅ CHECK 3: If user deleted their own message (optional)
         const deletedBy = revocationMessage.participant 
             || revocationMessage.key?.participant 
             || revocationMessage.key?.remoteJid 
             || 'unknown';
+            
+        if (original.sender === deletedBy) {
+            console.log('[ANTI-DELETE] User deleted their own message, ignoring');
+            messageStore.delete(messageId);
+            return;
+        }
 
         targetChat = original.group || original.sender;
         if (!targetChat) return;
