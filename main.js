@@ -247,7 +247,7 @@ async function sendAdminOnlyError(sock, chatId, message) {
 
 async function sendOwnerOnlyError(sock, chatId, message) {
     await sock.sendMessage(chatId, { 
-        text: '🚫 Only the Owner or sudo can use this command!', 
+        text: '🚫 Command can globaly executed in private chats only', 
         ...channelInfo 
     }, { quoted: message });
 }
