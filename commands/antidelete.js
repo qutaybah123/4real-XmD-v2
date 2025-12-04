@@ -81,17 +81,26 @@ async function handleAntideleteCommand(sock, chatId, message, match) {
     }
 }
 
-// Message storage
-async function storeMessage(message) {
+// Message storage - FIXED VERSION
+async function storeMessage(message, sock) {
     try {
         const config = loadAntideleteConfig();
         if (!config.enabled || !message?.key?.id) return;
 
         const messageId = message.key.id;
-        const sender = message.key.participant || message.key.remoteJid;
+        let sender = message.key.participant || message.key.remoteJid;
         let content = '';
         let mediaType = '';
         let mediaBuffer = null;
+
+        // FIX: Check if message is from the bot
+        const isFromBot = message.key.fromMe || 
+                         (sock.user && sender && sender.includes(sock.user.id.split(':')[0]));
+        
+        // If message is from bot, store it with bot's JID
+        if (isFromBot && sock.user) {
+            sender = sock.user.id; // Use bot's actual JID
+        }
 
         if (message.message?.conversation) {
             content = message.message.conversation;
@@ -126,7 +135,16 @@ async function storeMessage(message) {
             mediaBuffer,
             sender,
             group: message.key.remoteJid.endsWith('@g.us') ? message.key.remoteJid : null,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            fromBot: isFromBot // Add flag to identify bot messages
+        });
+
+        console.log('[ANTI-DELETE STORED]', {
+            messageId,
+            sender,
+            content: content?.substring(0, 50) || 'media',
+            fromBot: isFromBot,
+            group: message.key.remoteJid.endsWith('@g.us')
         });
 
     } catch (error) {
@@ -149,7 +167,7 @@ async function bufferizeMedia(mediaMessage, type) {
     }
 }
 
-// Message revocation handler
+// Message revocation handler - FIXED VERSION
 async function handleMessageRevocation(sock, revocationMessage) {
     let targetChat;
     
@@ -161,7 +179,10 @@ async function handleMessageRevocation(sock, revocationMessage) {
 
         const messageId = revocationMessage.message.protocolMessage.key.id;
         const original = messageStore.get(messageId);
-        if (!original) return;
+        if (!original) {
+            console.log('[ANTI-DELETE] Message not found in store:', messageId);
+            return;
+        }
 
         // ✅ Get owner JID from settings
         const ownerJid = `${settings.ownerNumber}@s.whatsapp.net`;
@@ -179,7 +200,7 @@ async function handleMessageRevocation(sock, revocationMessage) {
         const cleanOriginalSender = originalSender.includes(':') ? originalSender.split(':')[0] : originalSender;
         
         // Get bot JID
-        const botJid = sock.user.id || '';
+        const botJid = sock.user?.id || '';
         const cleanBotJid = botJid.includes(':') ? botJid.split(':')[0] : botJid;
         
         console.log('[ANTI-DELETE DEBUG]', {
@@ -188,38 +209,47 @@ async function handleMessageRevocation(sock, revocationMessage) {
             cleanDeletedBy,
             cleanOwnerJid,
             cleanBotJid,
-            isGroup: !!original.group
+            isGroup: !!original.group,
+            fromBot: original.fromBot,
+            originalSender: originalSender
         });
         
-        // ✅ CHECK 1: If owner deleted the message (in any chat)
+        // ✅ CHECK 1: If original message was from bot (using the stored flag)
+        if (original.fromBot) {
+            console.log('[ANTI-DELETE] Bot message was deleted, ignoring');
+            messageStore.delete(messageId);
+            return;
+        }
+        
+        // ✅ CHECK 2: If owner deleted the message (in any chat)
         if (cleanDeletedBy && cleanDeletedBy.includes(cleanOwnerJid)) {
             console.log('[ANTI-DELETE] Owner deleted a message, ignoring');
             messageStore.delete(messageId);
             return;
         }
         
-        // ✅ CHECK 2: If bot deleted its own message
+        // ✅ CHECK 3: If bot deleted its own message
         if (cleanDeletedBy && cleanBotJid && cleanDeletedBy.includes(cleanBotJid)) {
             console.log('[ANTI-DELETE] Bot deleted its own message, ignoring');
             messageStore.delete(messageId);
             return;
         }
         
-        // ✅ CHECK 3: If original sender was the bot
+        // ✅ CHECK 4: If original sender was the bot (alternative check)
         if (cleanOriginalSender && cleanBotJid && cleanOriginalSender.includes(cleanBotJid)) {
-            console.log('[ANTI-DELETE] Bot message was deleted, ignoring');
+            console.log('[ANTI-DELETE] Bot message was deleted (alt check), ignoring');
             messageStore.delete(messageId);
             return;
         }
         
-        // ✅ CHECK 4: If original sender was the owner
+        // ✅ CHECK 5: If original sender was the owner
         if (cleanOriginalSender && cleanOriginalSender.includes(cleanOwnerJid)) {
             console.log('[ANTI-DELETE] Owner message was deleted, ignoring');
             messageStore.delete(messageId);
             return;
         }
         
-        // ✅ CHECK 5: If user deleted their own message (optional - comment out if you want to capture this)
+        // ✅ CHECK 6: If user deleted their own message (optional)
         if (cleanOriginalSender && cleanDeletedBy && 
             (cleanOriginalSender.includes(cleanDeletedBy) || cleanDeletedBy.includes(cleanOriginalSender))) {
             console.log('[ANTI-DELETE] User deleted their own message, ignoring');
@@ -290,10 +320,10 @@ function getMimeType(mediaType) {
     return mimeTypes[mediaType] || 'application/octet-stream';
 }
 
-// Cleanup old messages periodically (optional)
+// Cleanup old messages periodically
 function cleanupOldMessages() {
     const now = Date.now();
-    const oneHour = 60 * 60 * 1000; // 1 hour
+    const oneHour = 60 * 60 * 1000;
     
     for (const [messageId, message] of messageStore.entries()) {
         if (now - message.timestamp > oneHour) {
