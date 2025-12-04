@@ -110,6 +110,14 @@ async function storeMessage(message) {
             mediaType = 'video';
             content = message.message.videoMessage.caption || content;
             mediaBuffer = await bufferizeMedia(message.message.videoMessage, 'video');
+        } else if (message.message?.audioMessage) {
+            mediaType = 'audio';
+            content = message.message.audioMessage.caption || content;
+            mediaBuffer = await bufferizeMedia(message.message.audioMessage, 'audio');
+        } else if (message.message?.documentMessage) {
+            mediaType = 'document';
+            content = message.message.documentMessage.caption || content;
+            mediaBuffer = await bufferizeMedia(message.message.documentMessage, 'document');
         }
 
         messageStore.set(messageId, {
@@ -158,28 +166,62 @@ async function handleMessageRevocation(sock, revocationMessage) {
         // ✅ Get owner JID from settings
         const ownerJid = `${settings.ownerNumber}@s.whatsapp.net`;
         
-        // ✅ CHECK 1: Is original sender the bot owner?
-        if (original.sender === ownerJid) {
-            console.log('[ANTI-DELETE] Silently ignoring owner deletion');
-            messageStore.delete(messageId);
-            return;
-        }
-
-        // ✅ CHECK 2: Is original sender the bot itself?
-        const botJid = sock.user.id;
-        if (original.sender === botJid || original.sender.includes(botJid.split(':')[0])) {
-            console.log('[ANTI-DELETE] Ignoring bot message deletion');
-            messageStore.delete(messageId);
-            return;
-        }
-
-        // ✅ CHECK 3: If user deleted their own message (optional)
+        // ✅ Get who deleted the message
         const deletedBy = revocationMessage.participant 
             || revocationMessage.key?.participant 
             || revocationMessage.key?.remoteJid 
             || 'unknown';
-            
-        if (original.sender === deletedBy) {
+        
+        // Clean JIDs for comparison
+        const cleanDeletedBy = deletedBy.includes(':') ? deletedBy.split(':')[0] : deletedBy;
+        const cleanOwnerJid = ownerJid.replace('@s.whatsapp.net', '');
+        const originalSender = original.sender || '';
+        const cleanOriginalSender = originalSender.includes(':') ? originalSender.split(':')[0] : originalSender;
+        
+        // Get bot JID
+        const botJid = sock.user.id || '';
+        const cleanBotJid = botJid.includes(':') ? botJid.split(':')[0] : botJid;
+        
+        console.log('[ANTI-DELETE DEBUG]', {
+            messageId,
+            cleanOriginalSender,
+            cleanDeletedBy,
+            cleanOwnerJid,
+            cleanBotJid,
+            isGroup: !!original.group
+        });
+        
+        // ✅ CHECK 1: If owner deleted the message (in any chat)
+        if (cleanDeletedBy && cleanDeletedBy.includes(cleanOwnerJid)) {
+            console.log('[ANTI-DELETE] Owner deleted a message, ignoring');
+            messageStore.delete(messageId);
+            return;
+        }
+        
+        // ✅ CHECK 2: If bot deleted its own message
+        if (cleanDeletedBy && cleanBotJid && cleanDeletedBy.includes(cleanBotJid)) {
+            console.log('[ANTI-DELETE] Bot deleted its own message, ignoring');
+            messageStore.delete(messageId);
+            return;
+        }
+        
+        // ✅ CHECK 3: If original sender was the bot
+        if (cleanOriginalSender && cleanBotJid && cleanOriginalSender.includes(cleanBotJid)) {
+            console.log('[ANTI-DELETE] Bot message was deleted, ignoring');
+            messageStore.delete(messageId);
+            return;
+        }
+        
+        // ✅ CHECK 4: If original sender was the owner
+        if (cleanOriginalSender && cleanOriginalSender.includes(cleanOwnerJid)) {
+            console.log('[ANTI-DELETE] Owner message was deleted, ignoring');
+            messageStore.delete(messageId);
+            return;
+        }
+        
+        // ✅ CHECK 5: If user deleted their own message (optional - comment out if you want to capture this)
+        if (cleanOriginalSender && cleanDeletedBy && 
+            (cleanOriginalSender.includes(cleanDeletedBy) || cleanDeletedBy.includes(cleanOriginalSender))) {
             console.log('[ANTI-DELETE] User deleted their own message, ignoring');
             messageStore.delete(messageId);
             return;
@@ -197,9 +239,12 @@ async function handleMessageRevocation(sock, revocationMessage) {
             timeZone: 'Africa/Dar_es_Salaam'
         });
 
+        const senderNumber = cleanOriginalSender.split('@')[0] || 'Unknown';
+        const deletedByNumber = cleanDeletedBy.split('@')[0] || 'Unknown';
+        
         const messageInfo = `🕒 Original Time: ${timeFormatter.format(original.timestamp)}
-👤 Sender: @${original.sender.split('@')[0]}
-🗑️ Deleted By: @${deletedBy.split('@')[0]}`;
+👤 Sender: @${senderNumber}
+🗑️ Deleted By: @${deletedByNumber}`;
 
         if (original.mediaBuffer && original.mediaType) {
             await sock.sendMessage(targetChat, {
@@ -235,12 +280,30 @@ async function handleMessageRevocation(sock, revocationMessage) {
 
 // MIME type helper
 function getMimeType(mediaType) {
-    return {
+    const mimeTypes = {
         image: 'image/jpeg',
         video: 'video/mp4',
-        sticker: 'image/webp'
-    }[mediaType] || 'application/octet-stream';
+        sticker: 'image/webp',
+        audio: 'audio/mpeg',
+        document: 'application/octet-stream'
+    };
+    return mimeTypes[mediaType] || 'application/octet-stream';
 }
+
+// Cleanup old messages periodically (optional)
+function cleanupOldMessages() {
+    const now = Date.now();
+    const oneHour = 60 * 60 * 1000; // 1 hour
+    
+    for (const [messageId, message] of messageStore.entries()) {
+        if (now - message.timestamp > oneHour) {
+            messageStore.delete(messageId);
+        }
+    }
+}
+
+// Run cleanup every 30 minutes
+setInterval(cleanupOldMessages, 30 * 60 * 1000);
 
 module.exports = {
     handleAntideleteCommand,
