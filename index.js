@@ -135,7 +135,7 @@ async function startXeonBotInc() {
         try {
             const mek = chatUpdate.messages[0]
             if (!mek.message) return
-            await storeMessage(mek); // 🧩 Save message for anti-delete recovery
+            await storeMessage(mek, XeonBotInc); // 🧩 Save message for anti-delete recovery
 
             mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
             if (mek.key && mek.key.remoteJid === 'status@broadcast') {
