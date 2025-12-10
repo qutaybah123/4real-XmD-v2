@@ -2,6 +2,10 @@
 const fs = require('fs');
 const path = require('path');
 
+// Add message deduplication at the top
+const processedMessages = new Set();
+const MESSAGE_TIMEOUT = 5000; // 5 seconds
+
 // Redirect temp storage away from system /tmp
 const customTemp = path.join(process.cwd(), 'temp');
 if (!fs.existsSync(customTemp)) fs.mkdirSync(customTemp, { recursive: true });
