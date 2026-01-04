@@ -184,7 +184,7 @@ This project is licensed under the MIT License. However, you must:
 
 ## 📜 Copyright Notice
 
-Copyright (c) 2025 qut@ybah. All rights reserved.
+Copyright (c) 2026 qut@ybah. All rights reserved.
 
 This project contains code from various open source projects:
 - Baileys (MIT License)
