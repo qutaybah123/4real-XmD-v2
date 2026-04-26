@@ -35,7 +35,7 @@ Click the button below to fork the 4real Bot repository to your GitHub account:
 Deploy the bot and easily connect it to your WhatsApp account by pair code. Click the button below to deploy the bot on Replit.
 
 <div align="center">
-  <a href="https://3d50a6e70235469b91a535cf0245ca52.serveo.net" target="_blank">
+  <a href="https://4real-xmd-v2paircode.up.railway.app" target="_blank">
     <img alt='Pairing Code' src='https://img.shields.io/badge/Get%20Pairing%20Code-darkpink?style=for-the-badge&logo=opencv&logoColor=black'/>
   </a>
 </div>
